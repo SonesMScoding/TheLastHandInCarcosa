@@ -2,30 +2,49 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hastur's Baccarat</title>
+  <title>Hastur's Baccarat 2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./stylin/bootstrap.min.css">
-     <link rel="stylesheet" href="./styling/stylesheet1.css">
+     <link rel="stylesheet" href="./styling/stylesheet2.css">
 </head>
 <body>
 
   <!-- Error box overlay -->
-  <div class="error-box" id="errorBox">You cannot place more than 3 boons.</div>
+  <div class="error-box" id="errorBox">
+    You cannot place more than 3 boons.
+  </div>
 
   <div class="main-layout">
-    <div class="container-fluid mt-3 hud-box left-hud">
 
-      <div class="row">
+    <div class="container-fluid mt-3 hud-box left-hud">
+    <div class="row">
+
           <!-- Ledger of Carcosa -->
-          <div class="hud-box ledger-box">
+        <div class="hud-box ledger-box">
             <h5>Ledger of Carcosa</h5>
-              <ul class="list-unstyled" id="ledgerList">
-                <!-- Game history here -->
-              </ul>
-          </div>
+              <table>
+                <thead>
+                    <tr>
+                        <th>&NonBreakingSpace; &NonBreakingSpace;</th>
+                        <th>B</th>
+                        <th>P</th>
+                        <th>T</th>
+                        </tr>
+                </thead>
+            </table>
+  
+        <div class="ledger-scroll">
+            <table class="ledger-table">
+                <tbody id="ledger-body">
+        <!-- Rows will be added here dynamically -->
+                </tbody>
+            </table>
+         </div>
         </div>
 
-        <div class="col-md-3">
+    </div>
+
+
           <!-- Player Stats -->
           <div class="hud-box funds-box">
             <p><strong>Funds:</strong> $<span id="funds">100</span></p>
@@ -33,7 +52,7 @@
             <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
             <p><strong>Losses:</strong> $<span id="losses">0</span></p>
           </div>
-        </div>
+        
 
         <div class="col-md-6 text-center">
           <button class="btn btn-outline-warning mt-2">Menu</button>
@@ -105,19 +124,35 @@
 
 
     <div class="container-fluid mt-3 hud-box right-hud">
+
       <div class="container-fluid mt-3 altLeft-hud">
       <div class="row">
           <!-- Ledger of Carcosa -->
           <div class="hud-box ledger-box">
             <h5>Ledger of Carcosa</h5>
-              <ul class="list-unstyled" id="ledgerList">
-                <!-- Game history here -->
-              </ul>
+              <table>
+    <thead>
+      <tr>
+        <th></th>
+        <th>B</th>
+        <th>P</th>
+        <th>T</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- 5 rows for history -->
+      <tr><td>1</td><td></td><td></td><td></td></tr>
+      <tr><td>2</td><td></td><td></td><td></td></tr>
+      <tr><td>3</td><td></td><td></td><td></td></tr>
+      <tr><td>4</td><td></td><td></td><td></td></tr>
+      <tr><td>5</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
           </div>
         </div>
         
 
-        <div class="col-md-3">
+
           <!-- Player Stats -->
           <div class="hud-box funds-box">
             <p><strong>Funds:</strong> $<span id="funds">100</span></p>
@@ -125,14 +160,14 @@
             <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
             <p><strong>Losses:</strong> $<span id="losses">0</span></p>
           </div>
-        </div>
+
 
         <div class="col-md-6 text-center">
           <button class="btn btn-outline-warning mt-2">Menu</button>
         </div>
       </div>
             
-        <div class="col-md-2">
+
           <!-- Blessings -->
           <div class="hud-box blessing-box">
             <h6>Blessings</h6>
@@ -142,7 +177,7 @@
               <button class="btn btn-sm btn-outline-info">Use</button>
             </div>
           </div>
-        </div>
+        
 
       <div class="text-center mt-3">
               <button class="btn btn-warning mx-1">Deal</button>
@@ -150,7 +185,7 @@
               <button class="btn btn-warning mx-1">End Round</button>
             </div>
 
-      <div class="col-md-2">
+
           <!-- Boons -->
           <div class="hud-box boon-box">
             <h6>Boons</h6>
@@ -161,7 +196,7 @@
             </div>
           </div>
         </div>
-    </div>
+
 
   </div>
 
