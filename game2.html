@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hastur's Baccarat 3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./stylin/bootstrap.min.css">
+     <link rel="stylesheet" href="./styling/stylesheet2.css">
+</head>
+<body>
+  <!-- Error box overlay -->
+  <div class="error-box" id="errorBox">
+    You cannot place more than 3 boons.
+  </div>
+
+  <div class="main-layout">
+    <!-- Left HUD -->
+    <div class="hud-box left-hud">
+      <div class="ledger-box hud-box">
+        <h5>Ledger of Carcosa</h5>
+        <table>
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>B</th>
+              <th>P</th>
+              <th>T</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="ledger-scroll">
+          <table class="ledger-table">
+            <tbody id="ledger-body">
+              <!-- Dynamic rows -->
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
+        <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
+        <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+      </div>
+
+      <div class="hud-box funds-box">
+        <p><strong>Funds:</strong> $<span id="funds">100</span></p>
+        <p><strong>Current Bet:</strong> $<span id="active-bet">0</span></p>
+        <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
+        <p><strong>Losses:</strong> $<span id="losses">0</span></p>
+      </div>
+
+    </div>
+
+    <!-- Main Game Table -->
+    <div class="hud-box game-table-box">
+      <div class="card-area text-center">
+        <div class="discard hud-box small-box">Discard</div>
+        <div class="player-hand hud-box small-box">Player Hand</div>
+        <div class="banker-hand hud-box small-box">Banker Hand</div>
+        <div class="shoe hud-box small-box">Shoe</div>
+      </div>
+
+      <div class="row my-2">
+        <div class="col">
+          <div class="bet-zone">Player Bet Zone</div>
+        </div>
+        <div class="col">
+          <div class="bet-zone">Banker Bet Zone</div>
+        </div>
+        <div class="col">
+          <div class="bet-zone">Tie Bet Zone</div>
+        </div>
+      </div>
+
+      <div class="chips-box hud-box">
+        <div class="chips d-flex justify-content-center flex-wrap">
+          <div class="chip" draggable="true" data-value="1"></div>
+          <div class="chip" draggable="true" data-value="5"></div>
+          <div class="chip" draggable="true" data-value="10"></div>
+          <div class="chip" draggable="true" data-value="25"></div>
+          <div class="chip" draggable="true" data-value="100"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-row-mobile">
+    <!-- alternative left hud -->
+     <div class="hud-box altLeft-hud">
+      <div class="ledger-box hud-box">
+        <h5>Ledger of Carcosa</h5>
+        <table>
+          <thead>
+            <tr>
+              <th>&nbsp;</th>
+              <th>B</th>
+              <th>P</th>
+              <th>T</th>
+            </tr>
+          </thead>
+        </table>
+        <div class="ledger-scroll">
+          <table class="ledger-table">
+            <tbody id="ledger-body">
+              <!-- Dynamic rows -->
+            </tbody>
+          </table>
+        </div>
+        </div>
+
+        <div class="wins-box hud-box">
+            <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
+            <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
+            <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+        </div>
+
+      <div class="hud-box funds-box">
+        <p><strong>Funds:</strong> $<span id="funds">100</span></p>
+        <p><strong>Current Bet:</strong> $<span id="active-bet">0</span></p>
+        <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
+        <p><strong>Losses:</strong> $<span id="losses">0</span></p>
+      </div>
+    </div>
+
+    <!-- Right HUD -->
+    <div class="hud-box right-hud">
+      <div class="blessing-box hud-box">
+        <h6>Blessings</h6>
+        <div class="d-grid gap-2">
+          <button class="btn btn-sm btn-outline-info">Mad Hand</button>
+          <button class="btn btn-sm btn-outline-info">Eye of Sleep</button>
+          <button class="btn btn-sm btn-outline-info">Use</button>
+        </div>
+      </div>
+
+      <div class="action-buttons text-center">
+        <button class="btn btn-warning mx-1">Deal</button>
+        <button class="btn btn-warning mx-1">Clear Bet</button>
+        <button class="btn btn-warning mx-1">End Round</button>
+    
+        <button class="btn btn-warning mx-1 alt-menu">Menu</button>
+    </div>
+
+      <div class="boon-box hud-box">
+        <h6>Boons</h6>
+        <div class="d-grid gap-2">
+          <button class="btn btn-sm btn-outline-light">Cthulhu's Boon</button>
+          <button class="btn btn-sm btn-outline-light">Nya's Boon</button>
+          <button class="btn btn-sm btn-outline-light">Sigil of Greed</button>
+        </div>
+      </div>
+    </div>
+    </div> <!-- end hud-row-mobile -->
+  </div>
+</body>
+
+</html>

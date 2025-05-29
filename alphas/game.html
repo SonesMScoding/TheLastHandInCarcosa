@@ -16,6 +16,7 @@
 
   <div class="main-layout">
 
+<!-- Left Box start -->
     <div class="container-fluid mt-3 hud-box left-hud">
     <div class="row">
 
@@ -25,13 +26,13 @@
               <table>
                 <thead>
                     <tr>
-                        <th>&NonBreakingSpace; &NonBreakingSpace;</th>
+                        <th>&NonBreakingSpace;</th>
                         <th>B</th>
                         <th>P</th>
                         <th>T</th>
                         </tr>
                 </thead>
-            </table>
+              </table>
   
         <div class="ledger-scroll">
             <table class="ledger-table">
@@ -39,10 +40,11 @@
         <!-- Rows will be added here dynamically -->
                 </tbody>
             </table>
-         </div>
         </div>
-
-    </div>
+          <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
+            <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
+            <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+        </div> <!-- end ledger box -->
 
 
           <!-- Player Stats -->
@@ -51,47 +53,27 @@
             <p><strong>Current Bet:</strong> $<span id="active-bet">0</span></p>
             <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
             <p><strong>Losses:</strong> $<span id="losses">0</span></p>
-          </div>
-        
+          </div> </div> <!-- end funds box -->
 
         <div class="col-md-6 text-center">
           <button class="btn btn-outline-warning mt-2">Menu</button>
         </div>
-      </div>
 
-      <!-- Main Game Area -->
+<!-- end left box --></div>
+
+
+
+ <!-- Main Game Area -->
 
           <!-- Game Table -->
-          <div class="hud-box game-table-box">
+    <div class="hud-box game-table-box">
 
-            <!-- <div class="row">
-                <div class="shoe"></div>
-
-                <div class="player-hand"></div>
-
-                <div class="banker-hand"></div>
-
-                <div class="discard"></div>
-            </div>
-            <div class="row my-2">
-              <div class="col">
-                <div class="bet-zone">Player Bet Zone</div>
-              </div>
-              <div class="col">
-                <div class="bet-zone">Banker Bet Zone</div>
-              </div>
-              <div class="col">
-                <div class="bet-zone">Tie Bet Zone</div>
-              </div>
-            </div> -->
-            <!-- Card Display Row -->
-<div class="row mb-3 card-area d-flex justify-content-around text-center">
-  <div class="discard hud-box small-box">Discard</div>
-  <div class="player-hand hud-box small-box">Player Hand</div>
-  <div class="banker-hand hud-box small-box">Banker Hand</div>
-    <div class="shoe hud-box small-box">Shoe</div>
-
-</div>
+     <div class="rowcard-area text-center">
+          <div class="discard hud-box small-box">Discard</div>
+            <div class="player-hand hud-box small-box">Player Hand</div>
+            <div class="banker-hand hud-box small-box">Banker Hand</div>
+          <div class="shoe hud-box small-box">Shoe</div>
+      </div>
 
 <!-- Betting Zones -->
 <div class="row my-2">
@@ -125,32 +107,35 @@
 
     <div class="container-fluid mt-3 hud-box right-hud">
 
-      <div class="container-fluid mt-3 altLeft-hud">
-      <div class="row">
+<!-- Alternative Left Box start -->
+    <div class="container-fluid mt-3 altLeft-hud">
+    <div class="row">
+
           <!-- Ledger of Carcosa -->
-          <div class="hud-box ledger-box">
+        <div class="hud-box ledger-box">
             <h5>Ledger of Carcosa</h5>
               <table>
-    <thead>
-      <tr>
-        <th></th>
-        <th>B</th>
-        <th>P</th>
-        <th>T</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- 5 rows for history -->
-      <tr><td>1</td><td></td><td></td><td></td></tr>
-      <tr><td>2</td><td></td><td></td><td></td></tr>
-      <tr><td>3</td><td></td><td></td><td></td></tr>
-      <tr><td>4</td><td></td><td></td><td></td></tr>
-      <tr><td>5</td><td></td><td></td><td></td></tr>
-    </tbody>
-  </table>
-          </div>
+                <thead>
+                    <tr>
+                        <th>&NonBreakingSpace;</th>
+                        <th>B</th>
+                        <th>P</th>
+                        <th>T</th>
+                        </tr>
+                </thead>
+              </table>
+  
+        <div class="ledger-scroll">
+            <table class="ledger-table">
+                <tbody id="ledger-body">
+        <!-- Rows will be added here dynamically -->
+                </tbody>
+            </table>
         </div>
-        
+          <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
+            <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
+            <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+        </div> <!-- end ledger box -->
 
 
           <!-- Player Stats -->
@@ -159,13 +144,13 @@
             <p><strong>Current Bet:</strong> $<span id="active-bet">0</span></p>
             <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
             <p><strong>Losses:</strong> $<span id="losses">0</span></p>
-          </div>
-
+          </div> </div> <!-- end funds box -->
 
         <div class="col-md-6 text-center">
           <button class="btn btn-outline-warning mt-2">Menu</button>
         </div>
-      </div>
+        
+<!-- end alternative left box --></div>
             
 
           <!-- Blessings -->
@@ -179,7 +164,7 @@
           </div>
         
 
-      <div class="text-center mt-3">
+      <div class="text-center action-buttons">
               <button class="btn btn-warning mx-1">Deal</button>
               <button class="btn btn-warning mx-1">Clear Bet</button>
               <button class="btn btn-warning mx-1">End Round</button>

@@ -1,4 +1,6 @@
-   body {
+/* Screen Wide */
+
+body {
       background-color: #0b0c10;
       color: #fcd116;
       font-family: 'Cinzel', serif;
@@ -8,14 +10,114 @@
       color: #fcd116;
     }
 
+    .main-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+/* End Screen wide */
+/* ------------------------------------------------------ */
+/* HUD styling */
     .hud-box {
       background-color: rgba(0, 0, 0, 0.5);
       border: 1px solid #fcd116;
       border-radius: 0.5rem;
       padding: 1rem;
-      margin-bottom: 1rem;
     }
 
+    .left-hud, .right-hud, .altLeft-hud{
+    flex: 0 0 15%;
+    max-width: 17%;
+    min-width: 170px;
+    display: flex;
+    flex-direction: column;
+   align-items: center;
+   height: 91.5vh;
+  }
+    /* Right HUD */
+    .right-hud .action-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      width: 100%;
+      margin: 0; /* Remove top margin */
+      padding: 0;
+    }
+
+    .right-hud .action-buttons button {
+      width: 80%;
+       max-width: 220px;
+      margin: 0 auto;
+    }
+
+    .blessing-box, .boon-box {
+      width: 100%;
+      max-width: 200px;
+      height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      box-sizing: border-box;
+    }
+
+    .altLeft-hud{
+      display: none;
+    }
+
+  /* End Right HUD */
+
+  /* Left HUD */
+    .ledger-box{
+      width: 175px;
+      padding: 10px;
+      text-align: center;
+      height: 295px;
+    }
+
+    table {
+       width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 10px;
+    }
+
+    th, td {
+      border: 2px solid gold;
+      height: 25px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    th {
+       background-color: #2e2c27;
+    }
+
+    td {
+      background-color: rgba(35, 29, 29, 0.5);
+    }
+
+    /* Scrollable table body */
+    .ledger-scroll {
+      max-height: 125px; /* 5 rows * 25px */
+      overflow-y: auto;
+      overflow-x: hidden;
+     border-top: none;
+      border-bottom: none;
+    }
+
+    .ledger-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    /* End left HUD */
+    
+
+/* End HUD styling */
+/* ------------------------------------------------------ */
+
+/* error box and flavor text */
     .error-box {
       background-color: rgba(0, 0, 0, 0.7);
       color: #fcd116;
@@ -29,7 +131,10 @@
       z-index: 10;
       display: none; /* toggle via JS */
     }
+/* End error box styling */
+/* ------------------------------------------------------ */
 
+/* Game table styling */
     .bet-zone {
       border: 2px dashed #fcd116;
       min-height: 100px;
@@ -48,444 +153,210 @@
       cursor: grab;
     }
 
-
-.main-layout {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-}
-
-.left-hud .right-hud{
-  flex: 0 0 15%;
-  max-width: 15%;
-  min-width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 91.5vh;
-}
-
-.game-table-box {
-  flex: 1 1 70%;
-  max-width: 70%;
-  min-width: 350px;
-  width: 69%;
-  height: 70vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid #fcd116;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin: 0 1rem;
-}
-
-/* .card-area {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: stretch;
-  gap: 1rem;
-}
-
-.card-area .small-box {
-  width: 120px;
-  min-height: 80px;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  min-width: 90px;
-  flex: 1 1 0;
-  margin: 0 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} 
-  
-Make the card spaces and make them responsive without them changing too much shape*/
-
-.ledger-box{
-width: 175px;
-  padding: 10px;
-  text-align: center;
-    }
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 10px;
-}
-
-th, td {
-  border: 2px solid gold;
-  height: 25px;
-  text-align: center;
-  font-weight: bold;
-}
-
-th {
-  background-color: #2e2c27;
-}
-
-td {
-  background-color: rgba(35, 29, 29, 0.5);
-}
-
-/* Scrollable table body */
-.ledger-scroll {
-  max-height: 125px; /* 5 rows * 25px */
-  overflow-y: auto;
-  overflow-x: hidden;
-  border-top: none;
-  border-bottom: none;
-}
-
-.ledger-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-/* body { 
-      background-color: #0b0c10;
-      color: #fcd116;
-      font-family: 'Cinzel', serif;
-    }
-
-    .gold-text {
-      color: #fcd116;
-    }
-
-    .hud-box {
-      background-color: rgba(0, 0, 0, 0.5);
-      border: 1px solid #fcd116;
-      border-radius: 0.5rem;
-      padding: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .error-box {
-      background-color: rgba(0, 0, 0, 0.7);
-      color: #fcd116;
-      font-style: italic;
-      text-align: center;
-      padding: 0.5rem;
-      position: absolute;
-      top: 15%;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 10;
-      display: none; /* toggle via JS */
-    
-
-    /* Layout for main HUD and game area 
-
-
-.main-layout {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 100%;
-}
-.left-hud {
-  flex: 0 0 15%;
-  max-width: 15%;
-  min-width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 91.5vh;
-}
-.right-hud {
-  flex: 0 0 15%;
-  max-width: 15%;
-  min-width: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 91.5vh;
-}
-.game-table-box {
-  flex: 1 1 70%;
-  max-width: 70%;
-  min-width: 350px;
-  width: 69%;
-  height: 70vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  border: 1px solid #fcd116;
-  border-radius: 0.5rem;
-  padding: 1rem;
-  margin: 0 1rem;
-}
-
-.card-area {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: stretch;
-  gap: 1rem;
-}
-
-.card-area .small-box {
-  width: 120px;
-  min-height: 80px;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  min-width: 90px;
-  flex: 1 1 0;
-  margin: 0 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-
-.shoe .discard{
-  width: 90px;
-}
-
-    .ledger-box{
-      width: 200px;
-      height: 400px;
-    }
-
-    .funds-box{
-      width: 200px;
-    }
-
-    .blessing-box{
-      height: 300px;
-    }
-    .boon-box{
-      height: 300px;
-    }
-
-    .bet-zone {
-      border: 2px dashed #fcd116;
-      min-height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 10px;
-    }
-
-    .chips-box{
-       width: fit-content;
-      min-width: 150px;
-      max-width: 360px;
-      margin-left: auto;
-      margin-right: auto;
-
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-    }
-
-    .chips {
+      .chips {
       display: flex;
       flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-start;
+      flex-wrap: nowrap;
+      justify-content: center;
       align-items: center;
       gap: 0.5rem;
     }
 
-    .chip {
-      aspect-ratio: 1/1;
-      width: 40px;
-      height: 40px;
-      background-color: #fcd116;
-      border-radius: 50%;
-      margin: 5px;
-      cursor: grab;
-      min-width: 24px;
-      min-height: 24px;
-      max-width: 60px;
-      max-height: 60px;
-      box-sizing: border-box;
+    .chips-box {
+      display: flex;
+      width: fit-content;
+      min-width: 0;
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0.5rem 0;
+      background: none;
+      box-shadow: none;
+      align-self: center;
     }
 
-    .altLeft-hud {
-      display: none;
-      flex: 0 0 15%;
-  max-width: 15%;
-  min-width: 150px;
+    .game-table-box {
+    flex: 1 1 70%;
+    max-width: 70%;
+    min-width: 290px;
+    width: 70%;
+    height: 80vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    border: 1px solid #fcd116;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0 auto;
+  }
+
+  .card-area {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 91.5vh;
-    }
-
-    @media (max-width: 1200px) {
-  .left-hud, .right-hud {
-    min-width: 100px;
-    max-width: 18%;
-  }
-  .game-table-box {
-    min-width: 200px;
-    max-width: 64%;
-    width: 64%;
-  }
-  .chips-box {
-    max-width: 260px;
-    min-width: 100px;
-    padding: 0.5rem;
-  }
-  .ledger-box, .funds-box {
-    width: 140px;
-  }
-  .blessing-box, .boon-box {
-    height: 220px;
-    min-width: 120px;
-    padding: 0.5rem;
-  }
+  flex-direction: row;
+  justify-content: space-around;
+  flex-wrap: nowrap;
 }
 
-@media (max-width: 900px) {
-  .main-layout {
-    flex-direction: column;
-    align-items: stretch;
+
+  .discard, .shoe {
+    width: 50px;
+    min-width: 25px;
+    flex: 0 0 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(35, 29, 29, 0.5);
+    border: 1px solid #fcd116;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
   }
+
+  .player-hand, .banker-hand {
+    width: 150px;
+    min-width: 75px;
+    flex: 0 0 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(35, 29, 29, 0.5);
+    border: 1px solid #fcd116;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  .small-box{
+    height: 75px;
+  }
+
+
+
+/* End Gable Styling */
+/* ------------------------------------------------------ */
+
+/* Media Queries */
+@media (max-width: 1023px) {
   .left-hud{
     display: none;
   }
 
-  .altLeft-hud{
+  
+
+  .altLeft-hud, .right-hud {
     display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    margin: 0;
+    /* Stack vertically in parent container */
+  }
+
+  .main-layout {
     flex-direction: column;
     align-items: center;
-    width: 100%;
-    max-width: 100%;
-    min-width: 0;
   }
-  
-  .right-hud, .game-table-box {
-    max-width: 100%;
+
+  .game-table-box {
+    width: 90%;
+    max-width: 500px;
     min-width: 0;
-    width: 100%;
-    height: auto;
-    margin: 0 0 1rem 0;
+    margin: 0 auto;
   }
-  .card-area {
-    height: 40vw;
+
+  .hud-row-mobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  /* But keep action-buttons stacked vertically and centered */
+  .right-hud .action-buttons {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex !important;
+  }
+
+    .altLeft-hud > *, .right-hud > * {
     flex-direction: row;
-    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    margin: 0;
     gap: 0.5rem;
   }
-  .card-area .small-box {
-    aspect-ratio: 5/3;
-    width: 60px;
-    min-width: 40px;
-    max-width: 80px;
-    font-size: 0.7rem;
-    padding: 0.2rem;
-  }
-  .chips-box {
-    max-width: 200px;
-    min-width: 80px;
-    margin: 0 auto 1rem auto;
-    padding: 0.5rem;
-  }
+
   .blessing-box, .boon-box {
-    height: 160px;
-    min-width: 90px;
-    padding: 0.3rem;
+    width: 100%;
+    max-width: 500px;
+    height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    box-sizing: border-box;
   }
 }
 
 @media (max-width: 600px) {
-  .card-area {
+  .hud-row-mobile {
     flex-direction: column;
-    align-items: stretch;
     gap: 0.5rem;
   }
-  .card-area .small-box {
-    aspect-ratio: 5/3;
+  .altLeft-hud, .right-hud {
     width: 100%;
-    min-width: 0;
     max-width: 100%;
-    font-size: 0.7rem;
-    margin: 0 0 0.5rem 0;
-    padding: 0.15rem;
+    min-width: 0;
+    flex-direction: row;
+    align-items: stretch;
+    height: auto;
+    margin: 0;
   }
-  .chips {
-    flex-wrap: wrap;
-    justify-content: flex-start;
+
+  .right-hud .action-buttons {
+    flex-direction: column !important;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex !important;
   }
-  .chip {
-    width: 22px;
-    height: 22px;
-    min-width: 12px;
-    min-height: 12px;
-    max-width: 28px;
-    max-height: 28px;
-    margin: 2px;
+  .discard, .shoe {
+    width: 30px;
+    min-width: 15px;
+    flex: 0 0 30px;
+  }
+  .player-hand, .banker-hand {
+    width: 90px;
+    min-width: 45px;
+    flex: 0 0 90px;
+  }
+  .small-box{
+    height: 40px;
   }
   .bet-zone {
-    min-height: 60px;
-    font-size: 0.9rem;
-  }
-  .ledger-box, .funds-box {
-    width: 100%;
-    min-width: 0;
-  }
-  .blessing-box, .boon-box {
-    height: auto;
-    min-width: 0;
-    width: 100%;
-    padding: 0.2rem;
-  }
-}
-
-.card-area .shoe,
-.card-area .discard {
-  width: 70px;
-  min-width: 50px;
-  flex: 0 0 70px;
-}
-.card-area .player-hand,
-.card-area .banker-hand {
-  width: 140px;
-  min-width: 100px;
-  flex: 1 1 140px;
-}
-
-@media (min-width: 901px) {
-  .altLeft-hud {
-    display: none !important;
-  }
-}
-
-@media (min-width: 901px) and (max-width: 1200px) {
-  .chip {
-    width: 32px;
-    height: 32px;
-    min-width: 24px;
-    min-height: 24px;
-    max-width: 40px;
-    max-height: 40px;
-    aspect-ratio: 1/1;
-    margin: 4px;
-  }
-  .blessing-box, .boon-box {
-    height: 260px;
-    min-width: 120px;
+    min-height: 70px;
     padding: 0.5rem;
+    font-size: 0.95em;
   }
+  .chip {
+    width: 28px;
+    height: 28px;
+    margin: 3px;
+  }
+  .game-table-box {
+    width: 98%;
+    max-width: 350px;
+    min-width: 0;
+    margin: 0 auto;
+  }
+
+  
 }
 
-@media (min-width: 601px) and (max-width: 900px) {
-  .chips {
-    flex-wrap: nowrap;
-    justify-content: center;
-    gap: 0.5rem;
-  }
-  .chips-box {
-    max-width: 360px;
-    min-width: 200px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-  }
-}
-*/
+
+
+
+
