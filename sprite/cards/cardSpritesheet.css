@@ -1,0 +1,364 @@
+.sprite-club10 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -0px;
+ }
+ .sprite-club2 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -0px;
+ }
+ .sprite-club3 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -0px;
+ }
+ .sprite-club4 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -0px;
+ }
+ .sprite-club5 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1132px -0px;
+ }
+ .sprite-club6 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1415px -0px;
+ }
+ .sprite-club7 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1698px -0px;
+ }
+ .sprite-club8 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1981px -0px;
+ }
+ .sprite-club9 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -340px;
+ }
+ .sprite-cluba {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -340px;
+ }
+ .sprite-clubj {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -340px;
+ }
+ .sprite-clubk {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -340px;
+ }
+ .sprite-clubq {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1132px -340px;
+ }
+ .sprite-dia10 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1415px -340px;
+ }
+ .sprite-dia2 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1698px -340px;
+ }
+ .sprite-dia3 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1981px -340px;
+ }
+ .sprite-dia4 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -680px;
+ }
+ .sprite-dia5 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -680px;
+ }
+ .sprite-dia6 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -680px;
+ }
+ .sprite-dia7 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -680px;
+ }
+ .sprite-dia8 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1132px -680px;
+ }
+ .sprite-dia9 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1415px -680px;
+ }
+ .sprite-diaa {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1698px -680px;
+ }
+ .sprite-diaj {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1981px -680px;
+ }
+ .sprite-diak {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -1020px;
+ }
+ .sprite-diaq {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -1020px;
+ }
+ .sprite-hearts10 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -1020px;
+ }
+ .sprite-hearts2 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -1020px;
+ }
+ .sprite-hearts3 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1132px -1020px;
+ }
+ .sprite-hearts4 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1415px -1020px;
+ }
+ .sprite-hearts5 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1698px -1020px;
+ }
+ .sprite-hearts6 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1981px -1020px;
+ }
+ .sprite-hearts7 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -1360px;
+ }
+ .sprite-hearts8 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -1360px;
+ }
+ .sprite-hearts9 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -1360px;
+ }
+ .sprite-heartsa {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -1360px;
+ }
+ .sprite-heartsj {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1132px -1360px;
+ }
+ .sprite-heartsk {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1415px -1360px;
+ }
+ .sprite-heartsq {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1698px -1360px;
+ }
+ .sprite-spades10 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1981px -1360px;
+ }
+ .sprite-spades2 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -1700px;
+ }
+ .sprite-spades3 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -1700px;
+ }
+ .sprite-spades4 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -1700px;
+ }
+ .sprite-spades5 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -1700px;
+ }
+ .sprite-spades6 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1132px -1700px;
+ }
+ .sprite-spades7 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1415px -1700px;
+ }
+ .sprite-spades8 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1698px -1700px;
+ }
+ .sprite-spades9 {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -1981px -1700px;
+ }
+ .sprite-spadesa {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -2040px;
+ }
+ .sprite-spadesj {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -2040px;
+ }
+ .sprite-spadesk {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -2040px;
+ }
+ .sprite-spadesq {
+     background: url(cardSpritesheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -849px -2040px;
+ }

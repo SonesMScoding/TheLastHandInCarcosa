@@ -6,12 +6,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./stylin/bootstrap.min.css">
      <link rel="stylesheet" href="./styling/stylesheet2.css">
+
+<!-- Sprite sheet css -->
+ <link rel="stylesheet" href="./sprite/chips/chipsSpritesheet.css">
+
+<svg width="0" height="0">
+  <defs>
+    <clipPath id="inwardTopFlatBottom" clipPathUnits="objectBoundingBox">
+      <path d="
+        M0,0.1
+        Q0.5,0.3 1,0.1
+        L1,1
+        L0,1
+        Z" />
+    </clipPath>
+  </defs>
+</svg>
+
+
+
+
 </head>
 <body>
   <!-- Error box overlay -->
-  <div class="error-box" id="errorBox">
-    You cannot place more than 3 boons.
-  </div>
+  <div class="error-box" id="errorBox"></div>
+
+    <!-- Outcome box overlay -->
+<div  class="outcome-box" id="outcomeBox"></div>
 
   <div class="main-layout">
     <!-- Left HUD -->
@@ -51,25 +72,33 @@
 
     <!-- Main Game Table -->
     <div class="hud-box game-table-box">
+
       <div class="card-area text-center">
-        <div class="discard hud-box small-box">Discard</div>
-        <div class="player-hand hud-box small-box">Player Hand</div>
-        <div class="banker-hand hud-box small-box">Banker Hand</div>
-        <div class="shoe hud-box small-box">Shoe</div>
+        <div class="discard " id="discard-id"></div>
+
+        <!-- Player Hand -->
+  <div class="text-center">
+    <p class="hand-label" id="playerScore">P:0</p>
+    <div class="player-hand hud-box small-box" id="playerHand"></div>
+  </div>
+
+  <!-- Banker Hand -->
+  <div class="text-center">
+    <p class="hand-label" id="bankerScore">B:0</p>
+    <div class="banker-hand hud-box small-box" id="bankerHand"></div>
+  </div>
+
+        <div class="shoe " id="shoe-id"></div>
+        <div id="shoe-view" style="display:none;"></div>
       </div>
 
-      <div class="row my-2">
-        <div class="col">
-          <div class="bet-zone">Player Bet Zone</div>
-        </div>
-        <div class="col">
-          <div class="bet-zone">Banker Bet Zone</div>
-        </div>
-        <div class="col">
-          <div class="bet-zone">Tie Bet Zone</div>
-        </div>
-      </div>
+<div class="bet-zone-row">
+  <div class="bet-zone player-bet">PLAYER</div>
+  <div class="bet-zone tie-bet">TIE</div>
+  <div class="bet-zone banker-bet">BANKER</div>
+</div>
 
+      
       <div class="chips-box hud-box">
         <div class="chips d-flex justify-content-center flex-wrap">
           <div class="chip" draggable="true" data-value="1"></div>
@@ -98,7 +127,7 @@
         </table>
         <div class="ledger-scroll">
           <table class="ledger-table">
-            <tbody id="ledger-body">
+            <tbody id="ledger-body-alt">
               <!-- Dynamic rows -->
             </tbody>
           </table>
@@ -106,16 +135,16 @@
         </div>
 
         <div class="wins-box hud-box">
-            <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
-            <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
-            <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+            <p><strong>Banker Wins:</strong> <span id="bankerWin-count-alt">0</span></p>
+            <p><strong>Player Wins:</strong> <span id="playerWin-count-alt">0</span></p>
+            <p><strong>Ties:</strong> <span id="tie-count-alt">0</span></p>
         </div>
 
       <div class="hud-box funds-box">
-        <p><strong>Funds:</strong> $<span id="funds">100</span></p>
-        <p><strong>Current Bet:</strong> $<span id="active-bet">0</span></p>
-        <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
-        <p><strong>Losses:</strong> $<span id="losses">0</span></p>
+        <p><strong>Funds:</strong> $<span id="funds-alt">100</span></p>
+        <p><strong>Current Bet:</strong> $<span id="active-bet-alt">0</span></p>
+        <p><strong>Payouts:</strong> $<span id="payouts-alt">0</span></p>
+        <p><strong>Losses:</strong> $<span id="losses-alt">0</span></p>
       </div>
     </div>
 
@@ -131,9 +160,9 @@
       </div>
 
       <div class="action-buttons text-center">
-        <button class="btn btn-warning mx-1">Deal</button>
-        <button class="btn btn-warning mx-1">Clear Bet</button>
-        <button class="btn btn-warning mx-1">End Round</button>
+        <button class="btn btn-warning mx-1" id="dealBtn">Deal</button>
+        <button class="btn btn-warning mx-1" id="clearBetBtn">Clear Bet</button>
+        <button class="btn btn-warning mx-1" id="endRoundBtn">End Round</button>
     
         <button class="btn btn-warning mx-1 alt-menu">Menu</button>
     </div>
@@ -149,6 +178,10 @@
     </div>
     </div> <!-- end hud-row-mobile -->
   </div>
+
+
+  <!-- JS Scripts -->
+   <script type="module" src="./Scripts/main.js"></script>
 </body>
 
 </html>

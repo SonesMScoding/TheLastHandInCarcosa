@@ -1,0 +1,108 @@
+import { gameState } from './gameState.js';
+
+export function updateFundsHUD() {
+  // Main HUD
+  const funds = document.getElementById("funds");
+  const activeBet = document.getElementById("active-bet");
+  if (funds) funds.textContent = gameState.funds;
+  if (activeBet) activeBet.textContent = gameState.currentBet;
+
+  // Alternate HUD (mobile/other layouts)
+  const fundsAlt = document.getElementById("funds-alt");
+  const activeBetAlt = document.getElementById("active-bet-alt");
+  if (fundsAlt) fundsAlt.textContent = gameState.funds;
+  if (activeBetAlt) activeBetAlt.textContent = gameState.currentBet;
+}
+
+export function showError(message) {
+  const errorBox = document.getElementById("errorBox");
+  if (!errorBox) return alert(message);
+
+  errorBox.textContent = message;
+  errorBox.style.display = "flex";
+  requestAnimationFrame(() => {
+    errorBox.style.opacity = "1";
+  });
+
+
+  const dismiss = () => {
+    errorBox.style.opacity = "0";
+    setTimeout(() => {
+      errorBox.style.display = "none";
+      errorBox.textContent = "";
+    }, 300);
+    document.removeEventListener("click", dismiss);
+  };
+  document.addEventListener("click", dismiss);
+}
+
+export function showOutcome(message, payout, loss) {
+  const outcomeBox = document.getElementById("outcomeBox");
+  let details = "";
+  if (payout > 0) details += `<div style="color:#7fff7f;">Payout: $${payout}</div>`;
+  if (loss > 0) details += `<div style="color:#ff7f7f;">Loss: $${loss}</div>`;
+
+  outcomeBox.innerHTML = `${message}${details ? "<hr>" + details : ""}`;
+  outcomeBox.style.display = "flex";
+  requestAnimationFrame(() => {
+    outcomeBox.style.opacity = "1";
+  });
+
+  const dismiss = () => {
+    outcomeBox.style.opacity = "0";
+    setTimeout(() => {
+      outcomeBox.style.display = "none";
+      outcomeBox.innerHTML = "";
+    }, 300);
+    document.removeEventListener("click", dismiss);
+  };
+  // Delay adding the dismiss listener to avoid immediate dismissal
+  setTimeout(() => {
+    document.addEventListener("click", dismiss);
+  }, 100);
+}
+
+let roundNumber = 1; // Place this at module scope
+
+export function addLedgerRow(winner) {
+  function updateLedger(ledgerId) {
+    const ledgerBody = document.getElementById(ledgerId);
+    if (!ledgerBody) return;
+
+    let bCell = "", pCell = "", tCell = "";
+    if (winner === "banker") {
+      bCell = `<svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;"><path fill="#fcd116" d="M10 18s-7-4.35-7-10A5 5 0 0 1 10 3a5 5 0 0 1 7 5c0 5.65-7 10-7 10z"/></svg>`;
+    } else if (winner === "player") {
+      pCell = `<svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;"><polygon fill="#e74c3c" points="10,2 12,7.5 18,7.5 13,11.5 15,17 10,13.5 5,17 7,11.5 2,7.5 8,7.5"/></svg>`;
+    } else if (winner === "tie") {
+      tCell = `<svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;"><circle cx="10" cy="10" r="8" fill="#3498db"/></svg>`;
+    }
+
+    const row = document.createElement("tr");
+    row.innerHTML = `<td style="font-weight:bold;">${roundNumber}</td><td>${bCell}</td><td>${pCell}</td><td>${tCell}</td>`;
+    ledgerBody.appendChild(row);
+  }
+
+  updateLedger("ledger-body");
+  updateLedger("ledger-body-alt");
+
+  // Update win counters as before...
+  if (winner === "banker") {
+    const el = document.getElementById("bankerWin-count");
+    const elAlt = document.getElementById("bankerWin-count-alt");
+    if (el) el.textContent = parseInt(el.textContent) + 1;
+    if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
+  } else if (winner === "player") {
+    const el = document.getElementById("playerWin-count");
+    const elAlt = document.getElementById("playerWin-count-alt");
+    if (el) el.textContent = parseInt(el.textContent) + 1;
+    if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
+  } else if (winner === "tie") {
+    const el = document.getElementById("tie-count");
+    const elAlt = document.getElementById("tie-count-alt");
+    if (el) el.textContent = parseInt(el.textContent) + 1;
+    if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
+  }
+
+  roundNumber++;
+}

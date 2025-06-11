@@ -1,0 +1,36 @@
+.sprite-cthulusboon {
+     background: url(sprite_sheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -0px;
+ }
+ .sprite-nyasboon {
+     background: url(sprite_sheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -0px;
+ }
+ .sprite-shubsboon {
+     background: url(sprite_sheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -566px -0px;
+ }
+ .sprite-sigilgreed {
+     background: url(sprite_sheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -0px -340px;
+ }
+ .sprite-ykfavor {
+     background: url(sprite_sheet.png);
+     display: inline-block;
+     height: 340px;
+     width: 283px;
+     background-position: -283px -340px;
+ }
+ 

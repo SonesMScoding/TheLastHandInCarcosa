@@ -1,0 +1,44 @@
+{
+  "sprites": [
+    {
+      "fileName": "eyeofsleep.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "fileName": "forbiddenknowl.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 0
+    },
+    {
+      "fileName": "madhand.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 0
+    },
+    {
+      "fileName": "repairedreputation.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 340
+    },
+    {
+      "fileName": "whiseroutergods.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 340
+    }
+  ],
+  "packMode": "grid",
+  "padding": 0,
+  "backgroundColor": "rgba(0, 0, 0, 0)",
+  "spriteSheetWidth": 849,
+  "spriteSheetHeight": 680
+}

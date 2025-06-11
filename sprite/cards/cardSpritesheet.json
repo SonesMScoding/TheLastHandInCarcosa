@@ -1,0 +1,373 @@
+{
+  "sprites": [
+    {
+      "fileName": "club10.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "fileName": "club2.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 0
+    },
+    {
+      "fileName": "club3.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 0
+    },
+    {
+      "fileName": "club4.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 0
+    },
+    {
+      "fileName": "club5.png",
+      "width": 283,
+      "height": 340,
+      "x": 1132,
+      "y": 0
+    },
+    {
+      "fileName": "club6.png",
+      "width": 283,
+      "height": 340,
+      "x": 1415,
+      "y": 0
+    },
+    {
+      "fileName": "club7.png",
+      "width": 283,
+      "height": 340,
+      "x": 1698,
+      "y": 0
+    },
+    {
+      "fileName": "club8.png",
+      "width": 283,
+      "height": 340,
+      "x": 1981,
+      "y": 0
+    },
+    {
+      "fileName": "club9.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 340
+    },
+    {
+      "fileName": "cluba.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 340
+    },
+    {
+      "fileName": "clubj.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 340
+    },
+    {
+      "fileName": "clubk.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 340
+    },
+    {
+      "fileName": "clubq.png",
+      "width": 283,
+      "height": 340,
+      "x": 1132,
+      "y": 340
+    },
+    {
+      "fileName": "dia10.png",
+      "width": 283,
+      "height": 340,
+      "x": 1415,
+      "y": 340
+    },
+    {
+      "fileName": "dia2.png",
+      "width": 283,
+      "height": 340,
+      "x": 1698,
+      "y": 340
+    },
+    {
+      "fileName": "dia3.png",
+      "width": 283,
+      "height": 340,
+      "x": 1981,
+      "y": 340
+    },
+    {
+      "fileName": "dia4.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 680
+    },
+    {
+      "fileName": "dia5.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 680
+    },
+    {
+      "fileName": "dia6.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 680
+    },
+    {
+      "fileName": "dia7.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 680
+    },
+    {
+      "fileName": "dia8.png",
+      "width": 283,
+      "height": 340,
+      "x": 1132,
+      "y": 680
+    },
+    {
+      "fileName": "dia9.png",
+      "width": 283,
+      "height": 340,
+      "x": 1415,
+      "y": 680
+    },
+    {
+      "fileName": "diaa.png",
+      "width": 283,
+      "height": 340,
+      "x": 1698,
+      "y": 680
+    },
+    {
+      "fileName": "diaj.png",
+      "width": 283,
+      "height": 340,
+      "x": 1981,
+      "y": 680
+    },
+    {
+      "fileName": "diak.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 1020
+    },
+    {
+      "fileName": "diaq.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts10.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts2.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts3.png",
+      "width": 283,
+      "height": 340,
+      "x": 1132,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts4.png",
+      "width": 283,
+      "height": 340,
+      "x": 1415,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts5.png",
+      "width": 283,
+      "height": 340,
+      "x": 1698,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts6.png",
+      "width": 283,
+      "height": 340,
+      "x": 1981,
+      "y": 1020
+    },
+    {
+      "fileName": "hearts7.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 1360
+    },
+    {
+      "fileName": "hearts8.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 1360
+    },
+    {
+      "fileName": "hearts9.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 1360
+    },
+    {
+      "fileName": "heartsa.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 1360
+    },
+    {
+      "fileName": "heartsj.png",
+      "width": 283,
+      "height": 340,
+      "x": 1132,
+      "y": 1360
+    },
+    {
+      "fileName": "heartsk.png",
+      "width": 283,
+      "height": 340,
+      "x": 1415,
+      "y": 1360
+    },
+    {
+      "fileName": "heartsq.png",
+      "width": 283,
+      "height": 340,
+      "x": 1698,
+      "y": 1360
+    },
+    {
+      "fileName": "spades10.png",
+      "width": 283,
+      "height": 340,
+      "x": 1981,
+      "y": 1360
+    },
+    {
+      "fileName": "spades2.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 1700
+    },
+    {
+      "fileName": "spades3.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 1700
+    },
+    {
+      "fileName": "spades4.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 1700
+    },
+    {
+      "fileName": "spades5.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 1700
+    },
+    {
+      "fileName": "spades6.png",
+      "width": 283,
+      "height": 340,
+      "x": 1132,
+      "y": 1700
+    },
+    {
+      "fileName": "spades7.png",
+      "width": 283,
+      "height": 340,
+      "x": 1415,
+      "y": 1700
+    },
+    {
+      "fileName": "spades8.png",
+      "width": 283,
+      "height": 340,
+      "x": 1698,
+      "y": 1700
+    },
+    {
+      "fileName": "spades9.png",
+      "width": 283,
+      "height": 340,
+      "x": 1981,
+      "y": 1700
+    },
+    {
+      "fileName": "spadesa.png",
+      "width": 283,
+      "height": 340,
+      "x": 0,
+      "y": 2040
+    },
+    {
+      "fileName": "spadesj.png",
+      "width": 283,
+      "height": 340,
+      "x": 283,
+      "y": 2040
+    },
+    {
+      "fileName": "spadesk.png",
+      "width": 283,
+      "height": 340,
+      "x": 566,
+      "y": 2040
+    },
+    {
+      "fileName": "spadesq.png",
+      "width": 283,
+      "height": 340,
+      "x": 849,
+      "y": 2040
+    }
+  ],
+  "packMode": "grid",
+  "padding": 0,
+  "backgroundColor": "rgba(0, 0, 0, 0)",
+  "spriteSheetWidth": 2264,
+  "spriteSheetHeight": 2380
+}
