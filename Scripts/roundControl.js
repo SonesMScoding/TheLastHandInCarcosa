@@ -1,17 +1,23 @@
 import { gameState } from './gameState.js';
 import { calculatePoints } from './gameLogic.js'; 
-import { showOutcome, addLedgerRow } from './uiScript.js';
+import { showOutcome, addLedgerRow, showWinOverlay, showLoseOverlay, showError } from './uiScript.js';
 import { setClearBtnState } from './bettingChips.js'; 
 import { showReshufflePopup, shuffleDeck } from './deck.js';
+
 
 // --- Utility: End Game ---
 function endGame(message) {
   gameState.gameOver = true;
   setTimeout(() => {
-    alert(message);
-    window.location.reload();
+    if (message.includes("win")) {
+      showWinOverlay();
+    } else {
+      showLoseOverlay();
+    }
   }, 500);
 }
+
+
 
 // --- Utility: Dissolve Chips and Cards, Reset Phase ---
 function dissolveChipsAndCards() {
@@ -57,6 +63,7 @@ export function endRound(winner) {
   let loss = 0;
   let msg = "";
 
+  
   // --- Calculate Payouts/Losses ---
   if (gameState.betAmounts && gameState.betAmounts.player > 0) {
     if (winner === "player") {
@@ -100,17 +107,17 @@ export function endRound(winner) {
     endGame("Game over! You ran out of funds.");
     return;
   }
-  if (gameState.reshuffles >= gameState.maxReshuffles && gameState.deck.length <= 6) {
+  if (gameState.reshuffles >= gameState.maxReshuffles && gameState.deck.length <= 4) {
     if (gameState.funds > 100) {
-      endGame("Congratulations! You win!");
+      endGame("won");
     } else {
-      endGame("Game over! You did not reach your goal.");
+      endGame("lost");
     }
     return;
   }
 
   // --- Reshuffle if Needed ---
-  if (gameState.deck.length <= 6 && gameState.reshuffles < gameState.maxReshuffles) {
+  if (gameState.deck.length <= 4 && gameState.reshuffles < gameState.maxReshuffles) {
     showReshufflePopup(() => {
       shuffleDeck();
     });
@@ -131,9 +138,8 @@ export function endRound(winner) {
 
 // --- Main: Resolve Round (Determine Winner, Glow, Call endRound) ---
 export function resolveRound() {
-  // Only allow if phase is 'dealing'
   if (gameState.gamePhase !== "dealing") {
-    alert("You must deal cards before ending the round!");
+    showError("Your incompetence is astounding. You must deal cards before ending the round!");
     return;
   }
 
@@ -172,4 +178,57 @@ export function resolveRound() {
 
   // Set phase to 'resolving' so End Round can't be pressed again until next deal
   gameState.gamePhase = "resolving";
+}
+
+// --- Main: Reset Game State ---
+export function resetGameState() {
+  // Reset core game state
+  gameState.funds = 100;
+  gameState.currentBet = 0;
+  gameState.totalPayouts = 0;
+  gameState.totalLosses = 0;
+  gameState.reshuffles = 0;
+  gameState.deck = [];
+  gameState.playerHand = [];
+  gameState.bankerHand = [];
+  gameState.betAmounts = { player: 0, banker: 0, tie: 0 };
+  gameState.selectedZone = null;
+  gameState.gamePhase = "betting";
+  gameState.gameOver = false;
+
+  // Clear UI: hands, chips, outcome, ledger, etc.
+  document.querySelectorAll('.player-hand, .banker-hand').forEach(el => el.innerHTML = '');
+  document.querySelectorAll('.bet-zone .chip').forEach(chip => chip.remove());
+  document.getElementById('outcomeBox')?.classList.remove('show');
+  document.getElementById('outcomeBox')?.classList.remove('active');
+
+  const ledgerBody = document.getElementById('ledger-body');
+  if (ledgerBody) ledgerBody.innerHTML = '';
+
+  const ledgerBodyAlt = document.getElementById('ledger-body-alt');
+  if (ledgerBodyAlt) ledgerBodyAlt.innerHTML = '';
+
+  // Reset HUDs
+  document.getElementById('funds') && (document.getElementById('funds').textContent = 100);
+  document.getElementById('active-bet') && (document.getElementById('active-bet').textContent = 0);
+  document.getElementById('payouts') && (document.getElementById('payouts').textContent = 0);
+  document.getElementById('losses') && (document.getElementById('losses').textContent = 0);
+  document.getElementById('funds-alt') && (document.getElementById('funds-alt').textContent = 100);
+  document.getElementById('active-bet-alt') && (document.getElementById('active-bet-alt').textContent = 0);
+  document.getElementById('payouts-alt') && (document.getElementById('payouts-alt').textContent = 0);
+  document.getElementById('losses-alt') && (document.getElementById('losses-alt').textContent = 0);
+
+  // Hide overlays
+  document.getElementById('fullscreen-overlay-lose')?.classList.remove('active');
+  document.getElementById('fullscreen-overlay-win')?.classList.remove('active');
+  document.body.classList.remove('no-scroll');
+  document.getElementById('main-menu-overlay')?.classList.remove('active');
+
+  // Show start/credits overlay if you have one
+  const startMenu = document.getElementById('start-menu-overlay');
+  if (startMenu) startMenu.classList.add('active');
+
+  // Optionally reshuffle deck and reset chips
+  if (typeof shuffleDeck === 'function') shuffleDeck();
+  if (typeof setClearBtnState === 'function') setClearBtnState();
 }

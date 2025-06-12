@@ -33,6 +33,11 @@ body {
   font-family: 'Cinzel', serif;
 }
 
+body.no-scroll {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
 .gold-text {
   color: #fcd116;
 }
@@ -90,6 +95,86 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
   transition: opacity 0.3s ease-in-out;
 }
 
+#fullscreen-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10,10,10,0.98);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.fullscreen-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  margin-bottom: 2rem;
+  box-shadow: 0 0 32px #bfa600cc;
+  border: 4px solid #fcd116;
+  border-radius: 12px;
+}
+.menu-btn {
+  background: linear-gradient(180deg, #fcd116 60%, #bfa600 100%);
+  color: #2e2c27;
+  border: 2px solid #bfa600;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+  font-size: 1.5em;
+  padding: 0.5em 2em;
+  box-shadow: 0 0 16px #fcd11688;
+  cursor: pointer;
+}
+
+#main-menu-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+#main-menu-overlay.active {
+  display: flex !important;
+}
+
+.menu-content.gothic-menu {
+  background: #1a1a1a;
+  border: 3px solid #fcd116;
+  border-radius: 16px;
+  padding: 2em 3em;
+  box-shadow: 0 0 32px #bfa600cc;
+  text-align: center;
+}
+.menu-content.gothic-menu h2 {
+  color: #fcd116;
+  font-family: 'Cinzel', serif;
+  margin-bottom: 1.5em;
+}
+.menu-option {
+  display: block;
+  width: 100%;
+  margin: 0.5em 0;
+  padding: 0.7em 0;
+  font-size: 1.2em;
+  background: linear-gradient(180deg, #fcd116 60%, #bfa600 100%);
+  color: #2e2c27;
+  border: 2px solid #bfa600;
+  border-radius: 8px;
+  font-family: 'Cinzel', serif;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+  box-shadow: 0 0 8px #bfa60044;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.menu-option:hover {
+  background: linear-gradient(180deg, #ffe066 60%, #fcd116 100%);
+  color: #1a1a1a;
+}
 /* ------------------------------------------------------
    HUD Styling
 ------------------------------------------------------ */
@@ -225,7 +310,7 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
 }
 
 /* ------------------------------------------------------
-   Effects (JS-added classes, transitions, etc.)
+   Effects (JS-added classes, transitions, etc.
 ------------------------------------------------------ */
 .dissolve {
   opacity: 0;
@@ -652,4 +737,91 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
     padding-right: 0;
   }
 }
-/* ------------------------------------------------------ */
+
+/* Fullscreen overlay for win/lose */
+#fullscreen-overlay-lose,
+#fullscreen-overlay-win {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(10,10,10,0.98);
+  z-index: 10001; /* higher than #main-menu-overlay */
+  display: none;  /* shown via JS */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  padding: 2vw;
+}
+
+#fullscreen-overlay-lose.active,
+#fullscreen-overlay-win.active {
+  display: flex !important;
+}
+
+#fullscreen-overlay-lose .outcome-text,
+#fullscreen-overlay-win .outcome-text {
+  text-align: center;
+  color: #fcd116;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 2rem; /* Add some space at the bottom */
+}
+
+#fullscreen-overlay-lose button,
+#fullscreen-overlay-win button {
+  margin: 1rem 0.5rem 1rem 0.5rem;
+  font-size: 1.2em;
+  min-width: 180px;
+  max-width: 90vw;
+  white-space: normal;
+  word-break: break-word;
+}
+
+#fullscreen-overlay-lose .fullscreen-img,
+#fullscreen-overlay-win .fullscreen-img {
+  margin-top: 16rem; /* Much smaller! */
+  max-width: 90vw;
+  height: auto;
+}
+
+@media (max-width: 600px) {
+  #fullscreen-overlay-lose .fullscreen-img,
+  #fullscreen-overlay-win .fullscreen-img {
+    margin-top: 0.5rem;
+    max-width: 98vw;
+  }
+  #fullscreen-overlay-lose .outcome-text,
+  #fullscreen-overlay-win .outcome-text {
+    font-size: 1em;
+  }
+  #fullscreen-overlay-lose button,
+  #fullscreen-overlay-win button {
+    min-width: 120px;
+    font-size: 1em;
+  }
+}
+
+/* Tooltip for shoe hover */
+.shoe-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #1a1a1a;
+  color: #fcd116;
+  border: 2px solid #fcd116;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  font-family: 'Cinzel', serif;
+  font-size: 1em;
+  z-index: 20000;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.15s;
+  box-shadow: 0 0 8px #bfa60044;
+}
+.shoe-tooltip.visible {
+  opacity: 1;
+}

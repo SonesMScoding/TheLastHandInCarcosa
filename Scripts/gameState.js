@@ -17,6 +17,6 @@ export const gameState = {
   totalPayouts: 0, // <-- add this
   totalLosses: 0,   // <-- add this
   reshuffles: 0,         // Number of times deck has been reshuffled
-  maxReshuffles: 6,      // Maximum allowed reshuffles
+  maxReshuffles: 4,      // Maximum allowed reshuffles
   gameOver: false        // Track if game is over
 };

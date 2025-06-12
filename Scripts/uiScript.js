@@ -58,15 +58,20 @@ export function showError(message) {
     errorBox.style.opacity = "1";
   });
 
-  const dismiss = () => {
+  // Remove any previous click listeners to avoid stacking
+  function dismiss(e) {
     errorBox.style.opacity = "0";
     setTimeout(() => {
       errorBox.style.display = "none";
       errorBox.textContent = "";
     }, 300);
     document.removeEventListener("click", dismiss);
-  };
-  document.addEventListener("click", dismiss);
+  }
+  // Remove any previous listeners before adding a new one
+  document.removeEventListener("click", dismiss);
+  setTimeout(() => {
+    document.addEventListener("click", dismiss);
+  }, 100); // slight delay to avoid immediate dismissal from the triggering click
 }
 
 export function updateShoeView() {
@@ -151,4 +156,101 @@ export function addLedgerRow(winner) {
   }
 
   roundNumber++;
+}
+
+export function showFullscreenOverlay() {
+  document.getElementById('fullscreen-overlay').style.display = 'flex';
+}
+export function hideFullscreenOverlay() {
+  document.getElementById('fullscreen-overlay').style.display = 'none';
+}
+
+export function showWinOverlay() {
+  document.getElementById('fullscreen-overlay-win').classList.add('active');
+  document.body.classList.add('no-scroll');
+  // Hide outcomeBox if visible
+  const outcomeBox = document.getElementById('outcomeBox');
+  if (outcomeBox) {
+    outcomeBox.style.opacity = "0";
+    setTimeout(() => {
+      outcomeBox.style.display = "none";
+      outcomeBox.innerHTML = "";
+    }, 300);
+  }
+}
+
+export function showLoseOverlay() {
+  document.getElementById('fullscreen-overlay-lose').classList.add('active');
+  document.body.classList.add('no-scroll');
+  // Hide outcomeBox if visible
+  const outcomeBox = document.getElementById('outcomeBox');
+  if (outcomeBox) {
+    outcomeBox.style.opacity = "0";
+    setTimeout(() => {
+      outcomeBox.style.display = "none";
+      outcomeBox.innerHTML = "";
+    }, 300);
+  }
+}
+export function hideWinOverlay() {
+  document.getElementById('fullscreen-overlay-win').style.display = 'none';
+  document.getElementById('fullscreen-overlay-win').classList.remove('active');
+  document.body.classList.remove('no-scroll');
+}
+export function hideLoseOverlay() {
+  document.getElementById('fullscreen-overlay-lose').style.display = 'none';
+  document.getElementById('fullscreen-overlay-lose').classList.remove('active');
+  document.body.classList.remove('no-scroll');
+}
+
+function showMenuOverlay() {
+  document.getElementById('main-menu-overlay').style.display = 'flex';
+}
+function hideMenuOverlay() {
+  document.getElementById('main-menu-overlay').style.display = 'none';
+}
+
+// Attach event listeners after DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+  // Open menu from any menu button
+  document.querySelectorAll('.open-menu-btn').forEach(btn => {
+    btn.addEventListener('click', showMenuOverlay);
+  });
+
+  // Close menu
+  document.getElementById('close-menu-btn').addEventListener('click', hideMenuOverlay);
+
+  // Rulebook
+  document.getElementById('rulebook-btn').addEventListener('click', () => {
+    // Replace with your rulebook logic (e.g., open modal or link)
+    alert('Show Rulebook (implement this)');
+  });
+
+  // Restart Game
+  document.getElementById('restart-game-btn').addEventListener('click', () => {
+    window.location.reload();
+  });
+
+  // Return to Start
+  document.getElementById('return-start-btn').addEventListener('click', () => {
+    window.location.href = 'index.html'; // Change to your start page if different
+  });
+});
+
+export function setupShoeTooltip() {
+  const shoe = document.querySelector('.shoe');
+  const tooltip = document.getElementById('shoe-tooltip');
+
+  if (shoe && tooltip) {
+    shoe.addEventListener('mouseenter', () => {
+      tooltip.classList.add('visible');
+    });
+    shoe.addEventListener('mousemove', (e) => {
+      tooltip.style.left = (e.clientX + 16) + 'px';
+      tooltip.style.top = (e.clientY + 16) + 'px';
+    });
+    shoe.addEventListener('mouseleave', () => {
+      tooltip.classList.remove('visible');
+    });
+  }
 }

@@ -164,7 +164,7 @@
         <button class="btn btn-warning mx-1" id="clearBetBtn">Clear Bet</button>
         <button class="btn btn-warning mx-1" id="endRoundBtn">End Round</button>
     
-        <button class="btn btn-warning mx-1 alt-menu">Menu</button>
+        <button class="btn btn-warning mx-1 alt-menu open-menu-btn">Menu</button>
     </div>
 
       <div class="boon-box hud-box">
@@ -177,6 +177,38 @@
       </div>
     </div>
     </div> <!-- end hud-row-mobile -->
+
+
+<div id="main-menu-overlay">
+  <div class="menu-content gothic-menu">
+    <h2>Menu</h2>
+    <button class="menu-option" id="rulebook-btn">Rulebook</button>
+    <button class="menu-option" id="restart-game-btn">Restart Game</button>
+    <button class="menu-option" id="return-start-btn">Return to Start</button>
+    <button class="menu-option" id="close-menu-btn">Close Menu</button>
+  </div>
+</div>
+    
+<div id="fullscreen-overlay-lose" style="display:none;">
+  <img src="static/lose.png" alt="Overlay" class="fullscreen-img">
+  <div class="outcome-text">
+    <h2>Game Over</h2>
+    <p>Your funds have been depleted... you owe the kingdom of Carcosa more than what you can fathom. He is disappointed, oncemore. </p>
+    <button id="restart-btn-lose" class="btn btn-danger">Restart Game</button>
+  </div>
+</div>
+
+<div id="fullscreen-overlay-win" style="display:none;">
+  <img src="static/win.png" alt="Overlay" class="fullscreen-img">
+  <div class="outcome-text">
+    <h2>Congratulations!</h2>
+    <p>You have won the game! Your skills in Baccarat have proven superior, earning you a celebratory feast. The Outer Gods will not forget.</p>
+    <button id="restart-btn-win" class="btn btn-success">Restart Game</button>
+  </div>
+</div>
+
+<div id="shoe-tooltip" class="shoe-tooltip">Click to see remaining cards</div>
+
   </div>
 
 
