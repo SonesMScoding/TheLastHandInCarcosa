@@ -5,7 +5,7 @@ import { dealCards } from './dealing.js';
 import { setClearBtnState } from './bettingChips.js';
 import { shuffleDeck } from './deck.js';
 import { setupShoeOverlay } from './shoeToggle.js';
-import { resolveRound } from './resolveRound.js';
+import { resolveRound } from './roundControl.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   const chipPositions = {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupChips(chipSize, spriteSheetPath, chipPositions);
   setupBetZones(chipSize, spriteSheetPath, chipPositions);
   updateFundsHUD();
-  setClearBtnState();
+  setClearBtnState(); // <-- This ensures buttons are correct on load
 
   shuffleDeck();
   const dealBtn = document.getElementById("dealBtn");

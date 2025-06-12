@@ -1,32 +1,39 @@
 import { createCardElement } from "./cardMapping.js";
 import { gameState } from './gameState.js';
-import { showError } from './uiScript.js';
+import { showError, revealScoresByCard } from './uiScript.js';
 import { setClearBtnState } from './bettingChips.js';
 import { calculatePoints, shouldDrawThirdCard } from './gameLogic.js';
+import { drawCard } from './deck.js';
 
 const spritePath = "./sprite/cards/cardSpritesheet.png";
 
-// Draw a card from the deck (returns a card object)
-function drawCard() {
-  if (gameState.deck.length <= 6) {
-    showError("Not enough cards in the shoe. Please reshuffle.");
-    return null;
-  }
-  const card = gameState.deck.pop();
-  gameState.discard.push(card);
-  return card;
+// Helper to create a flippable card DOM structure
+function createFlippableCard(cardObj) {
+  const wrapper = document.createElement("div");
+  wrapper.className = "card card-wrapper";
+
+  const inner = document.createElement("div");
+  inner.className = "card-inner";
+
+  // Card front (face)
+  const front = createCardElement(cardObj, spritePath);
+  front.classList.add("card-front");
+
+  // Card back
+  const back = document.createElement("div");
+  back.className = "card-back";
+  back.style.backgroundImage = "url('./sprite/cards/cardBack.png')";
+  back.style.backgroundSize = "cover";
+  back.style.backgroundPosition = "center";
+
+  inner.appendChild(front);
+  inner.appendChild(back);
+  wrapper.appendChild(inner);
+
+  return wrapper;
 }
 
-// Flip animation helper
-function flipCard(cardElement, cardObj) {
-  setTimeout(() => {
-    console.log("Flipping card:", cardObj);
-    const front = createCardElement(cardObj, spritePath);
-    cardElement.replaceWith(front);
-  }, 300);
-}
-
-export function dealCards() {
+export async function dealCards() {
   setClearBtnState();
 
   if (gameState.currentBet === 0) {
@@ -81,40 +88,47 @@ export function dealCards() {
   gameState.playerHand = playerCards;
   gameState.bankerHand = bankerCards;
 
-  console.log("Player hand objects:", playerCards);
-  console.log("Banker hand objects:", bankerCards);
-
-  // Calculate points
-  const playerPoints = calculatePoints(playerCards);
-  const bankerPoints = calculatePoints(bankerCards);
-
-  // Update DOM
-  document.getElementById('playerScore').textContent = `P:${playerPoints}`;
-  document.getElementById('bankerScore').textContent = `B:${bankerPoints}`;
-
-  // Animation: deal cards with flip
+  // Animation: deal and flip cards one by one, updating score as you go
   const sequence = [
-    { handElem: playerHandElem, card: playerCards[0] },
-    { handElem: bankerHandElem, card: bankerCards[0] },
-    { handElem: playerHandElem, card: playerCards[1] },
-    { handElem: bankerHandElem, card: bankerCards[1] }
+    { handElem: playerHandElem, card: playerCards[0], hand: 'player' },
+    { handElem: bankerHandElem, card: bankerCards[0], hand: 'banker' },
+    { handElem: playerHandElem, card: playerCards[1], hand: 'player' },
+    { handElem: bankerHandElem, card: bankerCards[1], hand: 'banker' }
   ];
   // Add third cards to sequence if present
-  if (playerCards[2]) sequence.push({ handElem: playerHandElem, card: playerCards[2] });
-  if (bankerCards[2]) sequence.push({ handElem: bankerHandElem, card: bankerCards[2] });
+  if (playerCards[2]) sequence.push({ handElem: playerHandElem, card: playerCards[2], hand: 'player' });
+  if (bankerCards[2]) sequence.push({ handElem: bankerHandElem, card: bankerCards[2], hand: 'banker' });
 
-  sequence.forEach((step, i) => {
+  // Reset scores to zero before dealing
+  document.getElementById('playerScore').textContent = 'P:0';
+  document.getElementById('bankerScore').textContent = 'B:0';
+
+  let playerSum = 0;
+  let bankerSum = 0;
+
+  for (let i = 0; i < sequence.length; i++) {
+    const step = sequence[i];
+    await new Promise(res => setTimeout(res, 500));
+    const cardWrapper = createFlippableCard(step.card);
+    cardWrapper.style.top = "0";
+    cardWrapper.style.bottom = "";
+    cardWrapper.style.transform = "";
+    step.handElem.appendChild(cardWrapper);
+
+    // Flip after a short delay for animation
     setTimeout(() => {
-      // Card back
-      const back = document.createElement("div");
-      back.className = "card";
-      back.style.backgroundImage = "url('./sprite/cards/cardBack.png')";
-      back.style.backgroundSize = "cover";
-      back.style.backgroundPosition = "center";
-      step.handElem.appendChild(back);
+      cardWrapper.classList.add("flipped");
+    }, 200);
 
-      // Flip to front
-      flipCard(back, step.card);
-    }, i * 500);
-  });
+    // Update score as each card is dealt
+    if (step.hand === 'player') {
+      playerSum += (step.card.value === 'A' || ['J','Q','K','10'].includes(step.card.value)) ? 0 : parseInt(step.card.value) || 0;
+      document.getElementById('playerScore').textContent = `P:${playerSum % 10}`;
+    } else {
+      bankerSum += (step.card.value === 'A' || ['J','Q','K','10'].includes(step.card.value)) ? 0 : parseInt(step.card.value) || 0;
+      document.getElementById('bankerScore').textContent = `B:${bankerSum % 10}`;
+    }
+  }
+
+  // Enable "End Round" button or other UI as needed here
 }

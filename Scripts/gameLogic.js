@@ -1,3 +1,5 @@
+
+
 export function calculatePoints(hand) {
   let total = 0;
   for (const card of hand) {

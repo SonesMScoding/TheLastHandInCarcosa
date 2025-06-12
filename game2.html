@@ -28,38 +28,43 @@
 
 </head>
 <body>
+
+  <div class="hastur"></div>
   <!-- Error box overlay -->
   <div class="error-box" id="errorBox"></div>
 
     <!-- Outcome box overlay -->
 <div  class="outcome-box" id="outcomeBox"></div>
 
+<!-- reshuffle popup -->
+ <div id="reshuffle-popup" class="outcome-box" style="display:none;">
+  The deck is being reshuffled...
+</div>
+
   <div class="main-layout">
     <!-- Left HUD -->
     <div class="hud-box left-hud">
       <div class="ledger-box hud-box">
-        <h5>Ledger of Carcosa</h5>
-        <table>
-          <thead>
-            <tr>
-              <th>&nbsp;</th>
-              <th>B</th>
-              <th>P</th>
-              <th>T</th>
-            </tr>
-          </thead>
-        </table>
-        <div class="ledger-scroll">
-          <table class="ledger-table">
-            <tbody id="ledger-body">
-              <!-- Dynamic rows -->
-            </tbody>
-          </table>
-        </div>
-        <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
-        <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
-        <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
-      </div>
+  <h5>Ledger of Carcosa</h5>
+  <div class="ledger-scroll">
+    <table class="ledger-table">
+      <thead>
+        <tr>
+          <th style="width:18%;">&nbsp;</th>
+          <th style="width:27%;">B</th>
+          <th style="width:27%;">P</th>
+          <th style="width:27%;">T</th>
+        </tr>
+      </thead>
+      <tbody id="ledger-body">
+        <!-- Dynamic rows -->
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
+  <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
+  <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+</div>
 
       <div class="hud-box funds-box">
         <p><strong>Funds:</strong> $<span id="funds">100</span></p>
@@ -72,21 +77,20 @@
 
     <!-- Main Game Table -->
     <div class="hud-box game-table-box">
-
       <div class="card-area text-center">
         <div class="discard " id="discard-id"></div>
 
-        <!-- Player Hand -->
-  <div class="text-center">
-    <p class="hand-label" id="playerScore">P:0</p>
-    <div class="player-hand hud-box small-box" id="playerHand"></div>
-  </div>
+       <!-- Player Hand -->
+<div>
+  <p class="hand-label" id="playerScore">P:0</p>
+  <div class="player-hand"></div>
+</div>
 
-  <!-- Banker Hand -->
-  <div class="text-center">
-    <p class="hand-label" id="bankerScore">B:0</p>
-    <div class="banker-hand hud-box small-box" id="bankerHand"></div>
-  </div>
+<!-- Banker Hand -->
+<div>
+  <p class="hand-label" id="bankerScore">B:0</p>
+  <div class="banker-hand"></div>
+</div>
 
         <div class="shoe " id="shoe-id"></div>
         <div id="shoe-view" style="display:none;"></div>
@@ -114,31 +118,27 @@
     <!-- alternative left hud -->
      <div class="hud-box altLeft-hud">
       <div class="ledger-box hud-box">
-        <h5>Ledger of Carcosa</h5>
-        <table>
-          <thead>
-            <tr>
-              <th>&nbsp;</th>
-              <th>B</th>
-              <th>P</th>
-              <th>T</th>
-            </tr>
-          </thead>
-        </table>
-        <div class="ledger-scroll">
-          <table class="ledger-table">
-            <tbody id="ledger-body-alt">
-              <!-- Dynamic rows -->
-            </tbody>
-          </table>
-        </div>
-        </div>
+  <h5>Ledger of Carcosa</h5>
+  <div class="ledger-scroll">
+    <table class="ledger-table">
+      <thead>
+        <tr>
+          <th style="width:18%;">&nbsp;</th>
+          <th style="width:27%;">B</th>
+          <th style="width:27%;">P</th>
+          <th style="width:27%;">T</th>
+        </tr>
+      </thead>
+      <tbody id="ledger-body-alt">
+        <!-- Dynamic rows -->
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Banker Wins:</strong> <span id="bankerWin-count-alt">0</span></p>
+  <p><strong>Player Wins:</strong> <span id="playerWin-count-alt">0</span></p>
+  <p><strong>Ties:</strong> <span id="tie-count-alt">0</span></p>
+</div>
 
-        <div class="wins-box hud-box">
-            <p><strong>Banker Wins:</strong> <span id="bankerWin-count-alt">0</span></p>
-            <p><strong>Player Wins:</strong> <span id="playerWin-count-alt">0</span></p>
-            <p><strong>Ties:</strong> <span id="tie-count-alt">0</span></p>
-        </div>
 
       <div class="hud-box funds-box">
         <p><strong>Funds:</strong> $<span id="funds-alt">100</span></p>

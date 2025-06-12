@@ -19,7 +19,6 @@ export function parseCard(cardName) {
   };
 }
 
-
 export const cardSpritePositions = {};
 const SPRITE_WIDTH = 283;
 const SPRITE_HEIGHT = 340;
@@ -39,7 +38,7 @@ cardMap.forEach((fileName, i) => {
 // Utility function to create card element
 export function createCardElement(cardObj, spritePath) {
   // Accepts either a string or an object
-  const cardName = typeof cardObj === "string" ? cardObj : cardObj.name;
+  const cardName = typeof cardObj === "string" ? cardObj : (cardObj && cardObj.name);
   const CARD_WIDTH = 100;
   const CARD_HEIGHT = 120;
   const scale = CARD_HEIGHT / SPRITE_HEIGHT;
@@ -50,7 +49,16 @@ export function createCardElement(cardObj, spritePath) {
   card.style.backgroundImage = `url(${spritePath})`;
   card.style.backgroundRepeat = "no-repeat";
   card.style.backgroundSize = `${SPRITE_SHEET_WIDTH * scale}px ${SPRITE_SHEET_HEIGHT * scale}px`;
+
   const pos = cardSpritePositions[cardName];
-  card.style.backgroundPosition = `-${pos.x * scale}px -${pos.y * scale}px`;
+  if (pos) {
+    card.style.backgroundPosition = `-${pos.x * scale}px -${pos.y * scale}px`;
+  } else {
+    // fallback: blank or error card
+    console.warn("Unknown or malformed card for sprite:", cardObj);
+    card.style.backgroundPosition = "0 0";
+    card.style.backgroundColor = "#900";
+    card.textContent = "?";
+  }
   return card;
 }

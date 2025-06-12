@@ -1,13 +1,6 @@
 import { gameState } from './gameState.js';
 import { updateFundsHUD, showError } from './uiScript.js';
 
-export function setClearBtnState() { // <-- Export this function!
-  const clearBtn = document.getElementById("clearBetBtn");
-  if (clearBtn) {
-    clearBtn.disabled = gameState.gamePhase !== "betting";
-  }
-}
-
 // --- Setup Bet Zones Logic ---
 export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
   setClearBtnState(); // Set initial state
@@ -51,6 +44,7 @@ export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
       gameState.funds -= value;
       gameState.currentBet += value;
       updateFundsHUD();
+      setClearBtnState(); // <-- Add this here to update buttons after bet
 
       const newChip = document.createElement("div");
       newChip.className = "chip";
@@ -102,12 +96,17 @@ export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
       gameState.selectedZone = null;
       gameState.currentBet = 0;
       updateFundsHUD();
-      // Remove placed chip elements from bet zones
       document.querySelectorAll(".bet-zone .chip").forEach(chip => chip.remove());
+      setClearBtnState(); // <-- Add this to update buttons after clearing
     });
   }
 }
 
-// Call setClearBtnState() whenever you change gameState.gamePhase elsewhere in your code, for example:
-// gameState.gamePhase = "dealing"; setClearBtnState();
-// gameState.gamePhase = "betting"; setClearBtnState();
+export function setClearBtnState() {
+  const clearBtn = document.getElementById('clearBetBtn');
+  const dealBtn = document.getElementById('dealBtn');
+  const hasBet = Object.values(gameState.betAmounts).some(amount => amount > 0);
+
+  if (clearBtn) clearBtn.disabled = !hasBet || gameState.gamePhase !== "betting";
+  if (dealBtn) dealBtn.disabled = !hasBet || gameState.gamePhase !== "betting";
+}

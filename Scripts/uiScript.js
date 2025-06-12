@@ -1,5 +1,39 @@
 import { gameState } from './gameState.js';
 
+// Reveal scores card by card, using Baccarat rules
+export async function revealScoresByCard(playerHand, bankerHand) {
+  let playerSum = 0;
+  let bankerSum = 0;
+
+  // Helper to get Baccarat value
+  function baccaratValue(card) {
+    if (!card || !card.value) return 0;
+    if (card.value === 'A') return 0;
+    if (['J', 'Q', 'K', '10'].includes(card.value)) return 0;
+    return parseInt(card.value) || 0;
+  }
+
+  // Reveal player cards one by one
+  const playerCardElems = document.querySelectorAll('.player-hand .card');
+  for (let i = 0; i < playerHand.length; i++) {
+    playerSum += baccaratValue(playerHand[i]);
+    document.getElementById('playerScore').textContent = `P:${playerSum % 10}`;
+    // Flip the card visually
+    if (playerCardElems[i]) playerCardElems[i].classList.add('flipped');
+    await new Promise(res => setTimeout(res, 400));
+  }
+
+  // Reveal banker cards one by one
+  const bankerCardElems = document.querySelectorAll('.banker-hand .card');
+  for (let i = 0; i < bankerHand.length; i++) {
+    bankerSum += baccaratValue(bankerHand[i]);
+    document.getElementById('bankerScore').textContent = `B:${bankerSum % 10}`;
+    // Flip the card visually
+    if (bankerCardElems[i]) bankerCardElems[i].classList.add('flipped');
+    await new Promise(res => setTimeout(res, 400));
+  }
+}
+
 export function updateFundsHUD() {
   // Main HUD
   const funds = document.getElementById("funds");
@@ -24,7 +58,6 @@ export function showError(message) {
     errorBox.style.opacity = "1";
   });
 
-
   const dismiss = () => {
     errorBox.style.opacity = "0";
     setTimeout(() => {
@@ -36,7 +69,14 @@ export function showError(message) {
   document.addEventListener("click", dismiss);
 }
 
-export function showOutcome(message, payout, loss) {
+export function updateShoeView() {
+  const shoeElem = document.getElementById('shoe-id');
+  // if (shoeElem) {
+  //   shoeElem.textContent = `Cards left: ${gameState.deck.length}`;
+  // }
+}
+
+export function showOutcome(message, payout, loss, onDismiss) {
   const outcomeBox = document.getElementById("outcomeBox");
   let details = "";
   if (payout > 0) details += `<div style="color:#7fff7f;">Payout: $${payout}</div>`;
@@ -53,16 +93,19 @@ export function showOutcome(message, payout, loss) {
     setTimeout(() => {
       outcomeBox.style.display = "none";
       outcomeBox.innerHTML = "";
-    }, 300);
+      // Reset scores to zero after outcome is dismissed
+      document.getElementById('playerScore').textContent = 'P:0';
+      document.getElementById('bankerScore').textContent = 'B:0';
+      if (typeof onDismiss === "function") onDismiss();
+    }, 400);
     document.removeEventListener("click", dismiss);
   };
-  // Delay adding the dismiss listener to avoid immediate dismissal
   setTimeout(() => {
     document.addEventListener("click", dismiss);
-  }, 100);
+  }, 200);
 }
 
-let roundNumber = 1; // Place this at module scope
+let roundNumber = 1;
 
 export function addLedgerRow(winner) {
   function updateLedger(ledgerId) {
@@ -81,12 +124,15 @@ export function addLedgerRow(winner) {
     const row = document.createElement("tr");
     row.innerHTML = `<td style="font-weight:bold;">${roundNumber}</td><td>${bCell}</td><td>${pCell}</td><td>${tCell}</td>`;
     ledgerBody.appendChild(row);
+
+    // Scroll to bottom to show latest round
+    ledgerBody.scrollTop = ledgerBody.scrollHeight;
   }
 
   updateLedger("ledger-body");
   updateLedger("ledger-body-alt");
 
-  // Update win counters as before...
+  // Update win counters
   if (winner === "banker") {
     const el = document.getElementById("bankerWin-count");
     const elAlt = document.getElementById("bankerWin-count-alt");
