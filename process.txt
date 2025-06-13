@@ -1,0 +1,42 @@
+late april/early may:
+
+1. Make an element based baccarat, just baccarat
+
+2. Make cards and art (assistance with generative ChatGPT)
+
+3. HTML skeleton (make responsive, mostly hud-boxes )
+
+4. Make sprite sheets
+
+5. map chips and cards
+
+6. Chips and betting functionality
+
+7. main baccarat game with basic card animations and mapping
+
+8. conditional buttons and ui stuffs (disabling/enabling buttons, error msg, outcome msg, etc)
+
+9. create win/lose overlay art and game states/ win/lose
+
+10. Clean up code, cite resources/history, review current program state
+-------------------------------------------------------------------------------
+week before presentation: 
+To Do (6/13/25)
+
+1. Document progress/ clean up
+2. Decide where to make priorities 
+
+3. Boons and items mapping
+4. Boons and items implementation
+
+5. Load up start screen 
+        black -> credits -> start screen
+                                start game - fade start screen -> active game
+                                rulebook -> open new tab for rulebook stuffs
+                                credits -> black -> credits -> start screen
+
+6. Music
+7. Clean up + Documentation pt 2
+
+8. Make slideshows
+9. PREPARE

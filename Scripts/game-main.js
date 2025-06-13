@@ -1,15 +1,24 @@
-import { initializeChips } from './ChipsCreate.js';
-import { setupBetZones, setClearBtnState } from './bettingChips.js';
-import { updateFundsHUD, setupShoeTooltip } from './uiScript.js';
+/* ==========================================
+   game-main.js
+  Simplifies the main game logic and UI interactions for Baccarat
+   Handles initialization, event listeners, and game state updates
+   Utilizes other modules for specific functionalities
+   [Add your informational notes here.]
+   ========================================== */
+
+import { initializeChips } from './chips.js';
+import { setupBetZones, setClearBtnState } from './betting-chips.js';
+import { updateFundsHUD, setupShoeTooltip, showWinOverlay } from './ui-utils.js';
 import { dealCards } from './dealing.js';
 import { shuffleDeck } from './deck.js';
-import { setupShoeOverlay } from './shoeToggle.js';
-import { resolveRound, resetGameState } from './roundControl.js';
+import { setupShoeOverlay } from './shoe-toggle.js';
+import { resolveRound, resetGameState } from './round-control.js';
+import { gameState } from './game-state.js';
 
 document.addEventListener("DOMContentLoaded", () => {
   // --- Initialize Game UI and State ---
   initializeChips();
-  setupBetZones(50, "./sprite/chips/chipsSpritesheet.png", {
+  setupBetZones(50, "./sprite/chips/chips.png", {
     "1": "0px 0px",
     "5": "-50px -50px",
     "10": "-50px 0px",
@@ -62,7 +71,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const returnStartBtn = document.getElementById('return-start-btn');
   if (returnStartBtn) {
     returnStartBtn.addEventListener('click', () => {
-      window.location.href = 'game2.html';
+      window.location.href = 'baccarat.html';
     });
   }
+
+  // document.getElementById('cheat-win-btn')?.addEventListener('click', () => {
+  //   gameState.reshuffles = gameState.maxReshuffles;
+  //   gameState.funds = 101;
+  //   gameState.deck = gameState.deck.slice(0, 4); // Ensure deck.length = 4
+    // Optionally, set a dummy hand to avoid errors
+    // gameState.playerHand = [{value:'9'},{value:'8'}];
+    // gameState.bankerHand = [{value:'2'},{value:'3'}];
+    // gameState.gamePhase = "dealing";
+    // Force player win and show win overlay
+    // import('./ui-utils.js').then(({ showWinOverlay }) => {
+    //   resolveRound();
+    //   setTimeout(() => showWinOverlay(), 300); // Show overlay after round resolves
+  //   // });
+  // });
 });

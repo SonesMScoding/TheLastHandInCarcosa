@@ -1,5 +1,12 @@
-import { gameState } from './gameState.js';
-import { updateShoeView } from './uiScript.js';
+/* ==========================================
+   deck.js
+   Creates and manages the deck of cards for baccarat
+   Handles shuffling, drawing cards, and reshuffling
+   [Add your informational notes here.]
+   ========================================== */
+
+import { gameState } from './game-state.js';
+import { updateShoeView } from './ui-utils.js';
 
 // Standard 52-card deck for baccarat (no jokers)
 export function createDeck() {
@@ -16,7 +23,7 @@ export function createDeck() {
   for (const suit of suits) {
     const prefix = suitMap[suit];
     for (const value of values) {
-      // Use lowercase for face cards and ace to match your sprite naming
+      // Use lowercase for face cards and ace to match sprite naming
       let name = prefix + (
         value === 'A' ? 'a' :
         value === 'J' ? 'j' :
@@ -30,6 +37,7 @@ export function createDeck() {
 }
 
 // Fisher-Yates shuffle
+// https://medium.com/@omar.rashid2/fisher-yates-shuffle-a2aa15578d2f
 export function shuffleDeck() {
   let deck = createDeck();
   for (let i = deck.length - 1; i > 0; i--) {

@@ -1,4 +1,9 @@
-// Use a shared gameState object for all stateful values
+/* ==========================================
+  game-state.js
+  Central game state management for Baccarat
+   [Add your informational notes here.]
+   ========================================== */
+
 export const gameState = {
   funds: 100,
   currentBet: 0,
@@ -14,8 +19,8 @@ export const gameState = {
   deck: [],
   playerHand: [],
   bankerHand: [],
-  totalPayouts: 0, // <-- add this
-  totalLosses: 0,   // <-- add this
+  totalPayouts: 0,
+  totalLosses: 0,
   reshuffles: 0,         // Number of times deck has been reshuffled
   maxReshuffles: 4,      // Maximum allowed reshuffles
   gameOver: false        // Track if game is over

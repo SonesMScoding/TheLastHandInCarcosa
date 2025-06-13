@@ -1,6 +1,15 @@
-import { gameState } from './gameState.js';
+/* ==========================================
+   ui-utils.js
+   reveals scores, updates HUDs, shows outcomes, and manages overlays
+   Handles Baccarat-specific UI interactions
+   Provides utility functions for game state updates
+   [Add your informational notes here.]
+   ========================================== */
+
+import { gameState } from './game-state.js';
 
 // Reveal scores card by card, using Baccarat rules
+// https://www.w3schools.com/js/js_async.asp
 export async function revealScoresByCard(playerHand, bankerHand) {
   let playerSum = 0;
   let bankerSum = 0;
@@ -8,8 +17,7 @@ export async function revealScoresByCard(playerHand, bankerHand) {
   // Helper to get Baccarat value
   function baccaratValue(card) {
     if (!card || !card.value) return 0;
-    if (card.value === 'A') return 0;
-    if (['J', 'Q', 'K', '10'].includes(card.value)) return 0;
+    if (['J', 'Q', 'K', '10', 'A'].includes(card.value)) return 0;
     return parseInt(card.value) || 0;
   }
 
@@ -34,32 +42,35 @@ export async function revealScoresByCard(playerHand, bankerHand) {
   }
 }
 
+// Update funds and bet display in both HUDs
 export function updateFundsHUD() {
-  // Main HUD
   const funds = document.getElementById("funds");
   const activeBet = document.getElementById("active-bet");
   if (funds) funds.textContent = gameState.funds;
   if (activeBet) activeBet.textContent = gameState.currentBet;
 
-  // Alternate HUD (mobile/other layouts)
   const fundsAlt = document.getElementById("funds-alt");
   const activeBetAlt = document.getElementById("active-bet-alt");
   if (fundsAlt) fundsAlt.textContent = gameState.funds;
   if (activeBetAlt) activeBetAlt.textContent = gameState.currentBet;
 }
 
+// Show an error overlay, dismissable by click
 export function showError(message) {
   const errorBox = document.getElementById("errorBox");
   if (!errorBox) return alert(message);
 
   errorBox.textContent = message;
   errorBox.style.display = "flex";
+
+  // https://www.geeksforgeeks.org/javascript/window-window-requestanimationframe-method/
+  // https://www.kirupa.com/html5/animating_with_requestAnimationFrame.htm
   requestAnimationFrame(() => {
     errorBox.style.opacity = "1";
   });
 
   // Remove any previous click listeners to avoid stacking
-  function dismiss(e) {
+  function dismiss() {
     errorBox.style.opacity = "0";
     setTimeout(() => {
       errorBox.style.display = "none";
@@ -74,13 +85,16 @@ export function showError(message) {
   }, 100); // slight delay to avoid immediate dismissal from the triggering click
 }
 
+
 export function updateShoeView() {
-  const shoeElem = document.getElementById('shoe-id');
+  //  show remaining cards in the shoe
+  // const shoeElem = document.getElementById('shoe-id');
   // if (shoeElem) {
   //   shoeElem.textContent = `Cards left: ${gameState.deck.length}`;
   // }
 }
 
+// Show outcome overlay with payout/loss, dismissable by click
 export function showOutcome(message, payout, loss, onDismiss) {
   const outcomeBox = document.getElementById("outcomeBox");
   let details = "";
@@ -110,8 +124,8 @@ export function showOutcome(message, payout, loss, onDismiss) {
   }, 200);
 }
 
+// Ledger and round tracking
 let roundNumber = 1;
-
 export function addLedgerRow(winner) {
   function updateLedger(ledgerId) {
     const ledgerBody = document.getElementById(ledgerId);
@@ -126,11 +140,11 @@ export function addLedgerRow(winner) {
       tCell = `<svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;"><circle cx="10" cy="10" r="8" fill="#3498db"/></svg>`;
     }
 
+    //had to use copilot to assist with aligning the dynamic tr
+
     const row = document.createElement("tr");
     row.innerHTML = `<td style="font-weight:bold;">${roundNumber}</td><td>${bCell}</td><td>${pCell}</td><td>${tCell}</td>`;
     ledgerBody.appendChild(row);
-
-    // Scroll to bottom to show latest round
     ledgerBody.scrollTop = ledgerBody.scrollHeight;
   }
 
@@ -138,17 +152,23 @@ export function addLedgerRow(winner) {
   updateLedger("ledger-body-alt");
 
   // Update win counters
+  // https://codepen.io/kraigwalker/pen/DjwedK
+  // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
   if (winner === "banker") {
     const el = document.getElementById("bankerWin-count");
     const elAlt = document.getElementById("bankerWin-count-alt");
     if (el) el.textContent = parseInt(el.textContent) + 1;
     if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
-  } else if (winner === "player") {
+  } 
+  
+  else if (winner === "player") {
     const el = document.getElementById("playerWin-count");
     const elAlt = document.getElementById("playerWin-count-alt");
     if (el) el.textContent = parseInt(el.textContent) + 1;
     if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
-  } else if (winner === "tie") {
+  } 
+  
+  else if (winner === "tie") {
     const el = document.getElementById("tie-count");
     const elAlt = document.getElementById("tie-count-alt");
     if (el) el.textContent = parseInt(el.textContent) + 1;
@@ -158,31 +178,24 @@ export function addLedgerRow(winner) {
   roundNumber++;
 }
 
-export function showFullscreenOverlay() {
-  document.getElementById('fullscreen-overlay').style.display = 'flex';
-}
-export function hideFullscreenOverlay() {
-  document.getElementById('fullscreen-overlay').style.display = 'none';
-}
-
+// Fullscreen overlays for win/lose
 export function showWinOverlay() {
   document.getElementById('fullscreen-overlay-win').classList.add('active');
   document.body.classList.add('no-scroll');
-  // Hide outcomeBox if visible
   const outcomeBox = document.getElementById('outcomeBox');
   if (outcomeBox) {
     outcomeBox.style.opacity = "0";
     setTimeout(() => {
       outcomeBox.style.display = "none";
       outcomeBox.innerHTML = "";
+       //makes sure the "bet wins, whatever payout" overlay is hidden
+
     }, 300);
   }
 }
-
 export function showLoseOverlay() {
   document.getElementById('fullscreen-overlay-lose').classList.add('active');
   document.body.classList.add('no-scroll');
-  // Hide outcomeBox if visible
   const outcomeBox = document.getElementById('outcomeBox');
   if (outcomeBox) {
     outcomeBox.style.opacity = "0";
@@ -193,24 +206,28 @@ export function showLoseOverlay() {
   }
 }
 export function hideWinOverlay() {
-  document.getElementById('fullscreen-overlay-win').style.display = 'none';
-  document.getElementById('fullscreen-overlay-win').classList.remove('active');
+  const winOverlay = document.getElementById('fullscreen-overlay-win');
+  winOverlay.classList.remove('active');
+  winOverlay.style.display = 'none';
   document.body.classList.remove('no-scroll');
+  // makes sure the game behind the overlay doesnt scroll and interfere with the users priorities
 }
 export function hideLoseOverlay() {
-  document.getElementById('fullscreen-overlay-lose').style.display = 'none';
-  document.getElementById('fullscreen-overlay-lose').classList.remove('active');
+  const loseOverlay = document.getElementById('fullscreen-overlay-lose');
+  loseOverlay.classList.remove('active');
+  loseOverlay.style.display = 'none';
   document.body.classList.remove('no-scroll');
 }
 
+// Main menu overlay controls
 function showMenuOverlay() {
-  document.getElementById('main-menu-overlay').style.display = 'flex';
+  document.getElementById('main-menu-overlay').classList.add('active');
 }
 function hideMenuOverlay() {
-  document.getElementById('main-menu-overlay').style.display = 'none';
+  document.getElementById('main-menu-overlay').classList.remove('active');
 }
 
-// Attach event listeners after DOM is loaded
+// !!!!! must event listeners after DOM is loaded ^^
 document.addEventListener('DOMContentLoaded', () => {
   // Open menu from any menu button
   document.querySelectorAll('.open-menu-btn').forEach(btn => {
@@ -222,7 +239,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Rulebook
   document.getElementById('rulebook-btn').addEventListener('click', () => {
-    // Replace with your rulebook logic (e.g., open modal or link)
     alert('Show Rulebook (implement this)');
   });
 
@@ -233,10 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Return to Start
   document.getElementById('return-start-btn').addEventListener('click', () => {
-    window.location.href = 'index.html'; // Change to your start page if different
+    window.location.href = 'index.html';
   });
 });
 
+// Tooltip for shoe hover
+// This function sets up a tooltip that follows the mouse cursor when hovering over the shoe element
+// https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
 export function setupShoeTooltip() {
   const shoe = document.querySelector('.shoe');
   const tooltip = document.getElementById('shoe-tooltip');

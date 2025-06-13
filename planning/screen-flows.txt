@@ -1,0 +1,28 @@
+Screens: 
+
+Opening Screen:
+Made by
+Music by
+-transition-
+Title
+
+Start Screen: 
+Start Game
+Rulebook
+Credits
+
+Active Game:
+HUD
+(Menu: rulebook, reset game, return to homescreen (progress lost))
+(Shoe Details)
+
+Win Screen:
+You won with xyz amount (cool background image)
+
+Lose Screen
+You Ended Up with less than what you started, you lose (cool background image)
+
+Credits
+Made by
+Music by
+Assistance with sprites, learning new implementation, debugging from ChatGPT

@@ -1,36 +1,35 @@
 .sprite-eyeofsleep {
-     background: url(sprite_sheet.png);
+     background: url('./items.png');
      display: inline-block;
      height: 340px;
      width: 283px;
      background-position: -0px -0px;
  }
  .sprite-forbiddenknowl {
-     background: url(sprite_sheet.png);
+     background: url('./items.png');
      display: inline-block;
      height: 340px;
      width: 283px;
      background-position: -283px -0px;
  }
  .sprite-madhand {
-     background: url(sprite_sheet.png);
+     background: url('./items.png');
      display: inline-block;
      height: 340px;
      width: 283px;
      background-position: -566px -0px;
  }
  .sprite-repairedreputation {
-     background: url(sprite_sheet.png);
+     background: url('./items.png');
      display: inline-block;
      height: 340px;
      width: 283px;
      background-position: -0px -340px;
  }
  .sprite-whiseroutergods {
-     background: url(sprite_sheet.png);
+     background: url('./items.png');
      display: inline-block;
      height: 340px;
      width: 283px;
      background-position: -283px -340px;
  }
- 

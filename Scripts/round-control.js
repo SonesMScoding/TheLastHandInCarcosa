@@ -1,9 +1,16 @@
-import { gameState } from './gameState.js';
-import { calculatePoints } from './gameLogic.js'; 
-import { showOutcome, addLedgerRow, showWinOverlay, showLoseOverlay, showError } from './uiScript.js';
-import { setClearBtnState } from './bettingChips.js'; 
-import { showReshufflePopup, shuffleDeck } from './deck.js';
+/* ==========================================
+  round-control.js
+   ends the game round, handles payouts, losses, 
+   implements reshuffles, and final game end
+   [Add your informational notes here.]
+   ========================================== */
 
+
+import { gameState } from './game-state.js';
+import { calculatePoints } from './game-logic.js'; 
+import { showOutcome, addLedgerRow, showWinOverlay, showLoseOverlay, showError } from './ui-utils.js';
+import { setClearBtnState } from './betting-chips.js'; 
+import { showReshufflePopup, shuffleDeck } from './deck.js';
 
 // --- Utility: End Game ---
 function endGame(message) {
@@ -16,8 +23,6 @@ function endGame(message) {
     }
   }, 500);
 }
-
-
 
 // --- Utility: Dissolve Chips and Cards, Reset Phase ---
 function dissolveChipsAndCards() {
@@ -63,7 +68,6 @@ export function endRound(winner) {
   let loss = 0;
   let msg = "";
 
-  
   // --- Calculate Payouts/Losses ---
   if (gameState.betAmounts && gameState.betAmounts.player > 0) {
     if (winner === "player") {
@@ -213,6 +217,8 @@ export function resetGameState() {
   document.getElementById('active-bet') && (document.getElementById('active-bet').textContent = 0);
   document.getElementById('payouts') && (document.getElementById('payouts').textContent = 0);
   document.getElementById('losses') && (document.getElementById('losses').textContent = 0);
+  
+  // Reset alt HUDs
   document.getElementById('funds-alt') && (document.getElementById('funds-alt').textContent = 100);
   document.getElementById('active-bet-alt') && (document.getElementById('active-bet-alt').textContent = 0);
   document.getElementById('payouts-alt') && (document.getElementById('payouts-alt').textContent = 0);

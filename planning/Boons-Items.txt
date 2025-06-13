@@ -1,0 +1,62 @@
+
+BOONS:
+You can have 3 boons active at one time, earn them by playing
+
+Cthulu's Boon: 
+Banker's Diamonds are diminished by 1 point
+    conditions: player hand has held 3 diamonds
+
+Nya's Boon: 
+Total of Winning bet is a prime number recieves a bonus payout
+    conditions: player hand has held 3 spades
+
+Shub (All-Mother/black goat) OR Dagon Boon: 
+Mult on won player Player Bets
+    conditions: player hand has held 3 clubs
+
+Sigil of Greed: 
+If Banker/player Wins by exactly 1 point, double payout
+    conditions: player wins by 1 point
+
+Mask of Doubles: 
+If tie occurs, and your losing bet on player or banker, win half your bet back rather than lose it all 
+    conditions: tie occurs and players bet is lost
+
+Blessing of the Yellow King: 
+Win an additional 10% payout when player wins three times in a row
+    conditions: player wins twice in a row
+
+---------------------------------------------------------
+
+ITEMS: 
+One-use items 
+
+Mad Hand
+Redraw player hand
+    conditions: player wins 3 times
+        Use When: After Cards are dealt, before end round
+
+Forbidden Knowledge:
+See next 5 cards
+    conditions: player loses 5 times
+         Use When: Before Deal
+
+Repaired Reputation: 
+Last Round is Forgiven/forgotten
+    conditions: player loses $20
+        Use When: After Cards are dealt, before end round
+
+Eye of Sleep
+Swap hands
+    conditions: player loses 3 times
+        Use When: After Cards are dealt, before end round
+
+
+Whisper of the Outer Gods
+Reshuffle deck
+    conditions: banker wins 5 times
+         Use When: Before Deal
+
+//higher understanding of geometry/total, adept mathmeticians, teleportation
+
+

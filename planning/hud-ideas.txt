@@ -1,0 +1,57 @@
+Active game hud elements:
+
+Ledger of carcosa:
+scroll feature
+collapse feature
+updated at end round
+
+error box underneath ledger
+(toggling boons mid round, placing bets in multiple zones, using an item at the wrong time, end round without dealing, clicking the graveyard to check remaining cards, deal without ending round, clear bet during dealt round, toggling fourth boon, petting the yellow king does not unlock any favors, use one item per round)
+
+Current funds: 
+current funds decrease when chips are placed
+funds restore when be is cleared
+funds are updated after payouts/end round
+
+total payouts: 
+updated when bets are won
+
+total losses:
+updated when bets are lost 
+
+chips: 
+selected chip amounts are highlighted
+chips can be dragged and stacked on bet zones
+chips on bet zones disappear when cleared bets and end round
+
+menu button
+rulebook, reset game, return to homescreen (lose progress)
+
+Boons:
+boons are toggle activate/deactivated by clicking
+if three boons are selected, one must be toggled to toggle a different boons
+details of hovered boons are displayed in the boon box
+toggling boons only happens before a deal
+
+Blessings: 
+there is a use button in the boon box
+items are used when they are highlighted after clicking and hitting the use button
+descriptions of items are displayed in the blessings box when hovered or clicked
+when items are used, the sprite disappears/disintigrates and effects take place
+
+deal:
+cards are flipped onto the board
+hand totals are added
+a winner is displayed/highlighted
+
+clear bet: 
+resets current funds and bet zones/chips
+
+End round: 
+delivers payouts/losses
+updates the ledger
+flips previous hands/cards into the discard
+
+Shoe: 
+hovering on the shoe highlights it
+clicking on the shoe shows remaining cards

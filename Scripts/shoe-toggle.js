@@ -1,6 +1,14 @@
-import { cardMap, cardSpritePositions } from './cardMapping.js';
-import { gameState } from './gameState.js';
+/* ==========================================
+   shoe-toggle.js
+    Overlay for showing the shoe (remaining cards)
+   [Add your informational notes here.]
+   ========================================== */
 
+
+import { cardMap, cardSpritePositions } from './cards.js';
+import { gameState } from './game-state.js';
+
+// Overlay for showing the shoe (remaining cards)
 export function setupShoeOverlay() {
   const SPRITE_WIDTH = 283;
   const SPRITE_HEIGHT = 340;
@@ -8,7 +16,7 @@ export function setupShoeOverlay() {
   const SPRITE_SHEET_HEIGHT = 2380;
   const CARD_WIDTH = 50;
   const CARD_HEIGHT = 60;
-  const SPRITE_PATH = "./sprite/cards/cardSpritesheet.png";
+  const SPRITE_PATH = "./sprite/cards/cards.png";
 
   const suits = [
     { prefix: "spades", symbol: "♠", cards: [] },
@@ -16,6 +24,7 @@ export function setupShoeOverlay() {
     { prefix: "dia", symbol: "♦", cards: [] },
     { prefix: "club", symbol: "♣", cards: [] }
   ];
+  // https://developer.mozilla.org/en-US/docs/Web/API/Element/prefix
 
   // Fill each suit's row in sprite order
   cardMap.forEach(card => {
@@ -33,8 +42,10 @@ export function setupShoeOverlay() {
 
   shoe.style.cursor = "pointer";
   shoe.addEventListener("click", () => {
-    shoeView.style.display = shoeView.style.display === "none" ? "flex" : "none";
-    if (shoeView.style.display === "flex") {
+    // Use flex for visible, none for hidden
+    const isOpen = shoeView.classList.toggle("active");
+    shoeView.style.display = isOpen ? "flex" : "none";
+    if (isOpen) {
       shoeView.innerHTML = "";
 
       suits.forEach(({ symbol, cards }) => {
@@ -83,6 +94,7 @@ export function setupShoeOverlay() {
   // Hide overlay when clicking outside the card area
   shoeView.addEventListener("click", (e) => {
     if (e.target === shoeView) {
+      shoeView.classList.remove("active");
       shoeView.style.display = "none";
     }
   });

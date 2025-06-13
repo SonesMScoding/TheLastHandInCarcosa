@@ -1,0 +1,65 @@
+Baccarat: 
+Gameplay Flow
+Player places a bet on Player, Banker, or Tie.
+
+Deal 2 cards to both Player and Banker.
+
+Natural Win: If Player or Banker has 8 or 9, round ends.
+
+Third Card Rule (only if no natural win):
+
+If Player total ≤ 5, Player draws a third card.
+
+Banker draws based on Player’s third card and Banker’s own total**
+
+Determine winner: Closest to 9 wins.
+---------------------------------------------------
+Betting:
+Payout:
+When bet is lost, money bet is lost equally
+Player win: 1:1
+
+Banker win: 1:1 (minus 5% commission)
+
+Tie: 8:1 
+---------------------------------------------------
+
+Hastur's Baccarat:
+1. Before Dealing, activate boons, familiarize with items
+2. Place Bets
+3. Deal cards
+4. use items if you so choose
+5. end round, ledger of carcosa updates, pause between rounds for player upkeep
+---------------------------------------------------
+
+Player Mechanics:
+Click the shoe to see what cards are still in the shoe
+
+Observe the Ledger of Carcosa to see the history of the Game
+
+Clear bet button for when player would like to change their bet, bet amount, or bet placement
+
+click on boons to activate and deactivate boons (3 at a time)
+
+click on item and click use to use item
+
+end round button ends the current round and deposits payoff, clears table, allows player upkeep
+---------------------------------------------------
+
+Boons:
+Boons give the player more advantages throughout the game. while the table is clear, players can choose to activate up to three boons at a time to aid them in their rounds
+
+---------------------------------------------------
+
+Blessings: 
+Blessings occur when certain conditions are met and gifts the player with items that help them with their rounds. They are one time use and cannot be gifted again in one game. To use an item, click on it from the blessings box and click the use button. Each item has a description that elaborates on how and when to use them. 
+
+---------------------------------------------------
+
+Win/lose
+
+The game ends when you play to the cut card 
+
+You win and earn a highscore when you have a positive scores
+
+You lose when your balance is below $100 or negative

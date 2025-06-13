@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hastur's Baccarat</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./styling/bootstrap.min.css">
+     <link rel="stylesheet" href="./styling/game-theme.css">
+
+<!-- Sprite sheet css -->
+ <link rel="stylesheet" href="./sprite/chips/chips-style.css">
+
+<svg width="0" height="0">
+  <defs>
+    <clipPath id="inwardTopFlatBottom" clipPathUnits="objectBoundingBox">
+      <path d="
+        M0,0.1
+        Q0.5,0.3 1,0.1
+        L1,1
+        L0,1
+        Z" />
+    </clipPath>
+  </defs>
+</svg>
+<!--
+========================================
+baccarat.html
+Main HTML structure for Hastur's Baccarat.
+[Add your informational notes here.]
+========================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hastur's Baccarat 3</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap & Theme CSS -->
+  <link rel="stylesheet" href="./styling/bootstrap.min.css">
+  <link rel="stylesheet" href="./styling/game-theme.css">
+  <!-- Sprite sheet css -->
+  <link rel="stylesheet" href="./sprite/chips/chips-style.css">
+
+  <!-- SVG Definitions -->
+  <svg width="0" height="0">
+    <defs>
+      <clipPath id="inwardTopFlatBottom" clipPathUnits="objectBoundingBox">
+        <path d="M0,0.1 Q0.5,0.3 1,0.1 L1,1 L0,1 Z" />
+      </clipPath>
+    </defs>
+  </svg>
+</head>
+<body>
+  <div class="hastur"></div>
+
+  <!-- Error box overlay -->
+  <div class="error-box" id="errorBox"></div>
+  <!-- Outcome box overlay -->
+  <div class="outcome-box" id="outcomeBox"></div>
+  <!-- Reshuffle popup -->
+  <div id="reshuffle-popup" class="outcome-box d-none">
+    The deck is being reshuffled...
+  </div>
+
+  <div class="main-layout">
+    <!-- Left HUD -->
+    <div class="hud-box left-hud">
+      <div class="ledger-box hud-box">
+        <h5>Ledger of Carcosa</h5>
+        <div class="ledger-scroll">
+          <table class="ledger-table">
+            <thead>
+              <tr>
+                <th style="width:18%;">&nbsp;</th>
+                <th style="width:27%;">B</th>
+                <th style="width:27%;">P</th>
+                <th style="width:27%;">T</th>
+              </tr>
+            </thead>
+            <tbody id="ledger-body">
+              <!-- Dynamic rows -->
+            </tbody>
+          </table>
+        </div>
+        <p><strong>Banker Wins:</strong> <span id="bankerWin-count">0</span></p>
+        <p><strong>Player Wins:</strong> <span id="playerWin-count">0</span></p>
+        <p><strong>Ties:</strong> <span id="tie-count">0</span></p>
+      </div>
+      <div class="hud-box funds-box">
+        <p><strong>Funds:</strong> $<span id="funds">100</span></p>
+        <p><strong>Current Bet:</strong> $<span id="active-bet">0</span></p>
+        <p><strong>Payouts:</strong> $<span id="payouts">0</span></p>
+        <p><strong>Losses:</strong> $<span id="losses">0</span></p>
+      </div>
+    </div>
+
+    <!-- Main Game Table -->
+    <div class="hud-box game-table-box">
+      <div class="card-area text-center">
+        <div class="discard" id="discard-id"></div>
+        <!-- Player Hand -->
+        <div>
+          <p class="hand-label" id="playerScore">P:0</p>
+          <div class="player-hand"></div>
+        </div>
+        <!-- Banker Hand -->
+        <div>
+          <p class="hand-label" id="bankerScore">B:0</p>
+          <div class="banker-hand"></div>
+        </div>
+        <div class="shoe" id="shoe-id"></div>
+        <div id="shoe-view"></div>
+      </div>
+      <div class="bet-zone-row">
+        <div class="bet-zone player-bet">PLAYER</div>
+        <div class="bet-zone tie-bet">TIE</div>
+        <div class="bet-zone banker-bet">BANKER</div>
+      </div>
+      <div class="chips-box hud-box">
+        <div class="chips d-flex justify-content-center flex-wrap">
+          <div class="chip" draggable="true" data-value="1"></div>
+          <div class="chip" draggable="true" data-value="5"></div>
+          <div class="chip" draggable="true" data-value="10"></div>
+          <div class="chip" draggable="true" data-value="25"></div>
+          <div class="chip" draggable="true" data-value="100"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hud-row-mobile">
+      <!-- alternative left hud -->
+      <div class="hud-box altLeft-hud">
+        <div class="ledger-box hud-box">
+          <h5>Ledger of Carcosa</h5>
+          <div class="ledger-scroll">
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th style="width:18%;">&nbsp;</th>
+                  <th style="width:27%;">B</th>
+                  <th style="width:27%;">P</th>
+                  <th style="width:27%;">T</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-body-alt">
+                <!-- Dynamic rows -->
+              </tbody>
+            </table>
+          </div>
+          <p><strong>Banker Wins:</strong> <span id="bankerWin-count-alt">0</span></p>
+          <p><strong>Player Wins:</strong> <span id="playerWin-count-alt">0</span></p>
+          <p><strong>Ties:</strong> <span id="tie-count-alt">0</span></p>
+        </div>
+        <div class="hud-box funds-box">
+          <p><strong>Funds:</strong> $<span id="funds-alt">100</span></p>
+          <p><strong>Current Bet:</strong> $<span id="active-bet-alt">0</span></p>
+          <p><strong>Payouts:</strong> $<span id="payouts-alt">0</span></p>
+          <p><strong>Losses:</strong> $<span id="losses-alt">0</span></p>
+        </div>
+      </div>
+      <!-- Right HUD -->
+      <div class="hud-box right-hud">
+        <div class="blessing-box hud-box">
+          <h6>Blessings</h6>
+          <div class="d-grid gap-2">
+            <button class="btn btn-sm btn-outline-info">Mad Hand</button>
+            <button class="btn btn-sm btn-outline-info">Eye of Sleep</button>
+            <button class="btn btn-sm btn-outline-info">Use</button>
+          </div>
+        </div>
+        <div class="action-buttons text-center">
+          <button class="btn btn-warning mx-1" id="dealBtn">Deal</button>
+          <button class="btn btn-warning mx-1" id="clearBetBtn">Clear Bet</button>
+          <button class="btn btn-warning mx-1" id="endRoundBtn">End Round</button>
+          <button class="btn btn-warning mx-1 alt-menu open-menu-btn">Menu</button>
+        </div>
+        <div class="boon-box hud-box">
+          <h6>Boons</h6>
+          <div class="d-grid gap-2">
+            <button class="btn btn-sm btn-outline-light">Cthulhu's Boon</button>
+            <button class="btn btn-sm btn-outline-light">Nya's Boon</button>
+            <button class="btn btn-sm btn-outline-light">Sigil of Greed</button>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div> 
+
+  <!-- Menu Overlay -->
+  <div id="main-menu-overlay" class="d-none">
+    <div class="menu-content gothic-menu">
+      <h2>Menu</h2>
+      <button class="menu-option btn btn-secondary my-1" id="rulebook-btn">Rulebook</button>
+      <button class="menu-option btn btn-danger my-1" id="restart-game-btn">Restart Game</button>
+      <button class="menu-option btn btn-info my-1" id="return-start-btn">Return to Start</button>
+      <button class="menu-option btn btn-warning my-1" id="close-menu-btn">Close Menu</button>
+    </div>
+  </div>
+  
+  <!-- Fullscreen Overlays -->
+  <div id="fullscreen-overlay-lose" class="d-none">
+    <img src="static/lose-overlay.png" alt="Overlay" class="fullscreen-img">
+    <div class="outcome-text text-center">
+      <h2>Game Over</h2>
+      <p>Your funds have been depleted... you owe the kingdom of Carcosa more than what you can fathom. He is disappointed, oncemore. </p>
+      <button id="restart-btn-lose" class="btn btn-danger mt-3">Restart Game</button>
+    </div>
+  </div>
+  <div id="fullscreen-overlay-win" class="d-none">
+    <img src="static/win-overlay.png" alt="Overlay" class="fullscreen-img">
+    <div class="outcome-text text-center">
+      <h2>Congratulations!</h2>
+      <p>You have won the game! Your skills in Baccarat have proven superior, earning you a celebratory feast. The Outer Gods will not forget.</p>
+      <button id="restart-btn-win" class="btn btn-success mt-3">Restart Game</button>
+    </div>
+  </div>
+
+  <!-- Shoe Tooltip -->
+  <div id="shoe-tooltip" class="shoe-tooltip">Click to see remaining cards</div>
+  <!-- <button id="cheat-win-btn" style="position:fixed;bottom:10px;right:10px;z-index:9999;">Cheat Win</button> -->
+
+  <!-- JS Scripts -->
+  <script type="module" src="./Scripts/game-main.js"></script>
+</body>
+</html>
+

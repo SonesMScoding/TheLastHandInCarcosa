@@ -1,5 +1,11 @@
-import { gameState } from './gameState.js';
-import { updateFundsHUD, showError } from './uiScript.js';
+/* ==========================================
+   betting-chips.js
+   Handles bet zone logic, chip placement, and clear/deal button state for Baccarat
+   [Add your informational notes here.]
+   ========================================== */
+
+import { gameState } from './game-state.js';
+import { updateFundsHUD, showError } from './ui-utils.js';
 
 // --- Setup Bet Zones Logic ---
 export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
@@ -44,7 +50,7 @@ export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
       gameState.funds -= value;
       gameState.currentBet += value;
       updateFundsHUD();
-      setClearBtnState(); // <-- Add this here to update buttons after bet
+      setClearBtnState(); 
 
       const newChip = document.createElement("div");
       newChip.className = "chip";
@@ -97,7 +103,7 @@ export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
       gameState.currentBet = 0;
       updateFundsHUD();
       document.querySelectorAll(".bet-zone .chip").forEach(chip => chip.remove());
-      setClearBtnState(); // <-- Add this to update buttons after clearing
+      setClearBtnState(); 
     });
   }
 }

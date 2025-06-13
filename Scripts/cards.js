@@ -1,3 +1,9 @@
+/* ==========================================
+   cards.js
+   Card mapping, parsing, and sprite position helpers for Baccarat
+   [Add your informational notes here.]
+   ========================================== */
+
 export const cardMap = [
   "club10", "club2", "club3", "club4", "club5", "club6", "club7", "club8",
   "club9", "cluba", "clubj", "clubk", "clubq",
@@ -6,7 +12,7 @@ export const cardMap = [
   "spades10", "spades2", "spades3", "spades4", "spades5", "spades6", "spades7", "spades8", "spades9", "spadesa", "spadesj", "spadesk", "spadesq"
 ];
 
-// Helper: convert "club3" => { suit: "club", value: "3", name: "club3" }
+//convert "club3" => { suit: "club", value: "3", name: "club3" }
 export function parseCard(cardName) {
   const match = cardName.match(/^(club|dia|hearts|spades)(10|[2-9]|[ajqk])$/i);
   if (!match) return null;

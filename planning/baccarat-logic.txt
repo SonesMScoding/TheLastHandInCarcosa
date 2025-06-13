@@ -1,0 +1,38 @@
+Deck Setup
+Use a standard 52-card deck, usually 6–8 shuffled decks in a shoe. (ended up only doing 4)
+
+Face cards and 10s = 0, Aces = 0, all other cards = face value.
+
+Only the right digit of a hand total counts (e.g., 15 → 5).
+
+Gameplay Flow
+Player places a bet on Player, Banker, or Tie.
+
+Deal 2 cards to both Player and Banker.
+
+Natural Win: If Player or Banker has 8 or 9, round ends.
+
+Third Card Rule (only if no natural win):
+
+If Player total ≤ 5, Player draws a third card.
+
+Banker draws based on Player’s third card and Banker’s own total**
+
+Determine winner: Closest to 9 wins.
+
+Payout:
+
+Player win: 1:1
+
+Banker win: 1:1 (minus 5% commission)
+
+Tie: 8:1 
+
+1. bet, player banker or tie
+2. draw two cards 
+3. value closest to 9 wins
+
+2 digit scores drop the first digit (11 -> 1, 13 ->3)
+
+
+

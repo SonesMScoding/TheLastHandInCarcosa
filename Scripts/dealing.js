@@ -1,11 +1,17 @@
-import { createCardElement } from "./cardMapping.js";
-import { gameState } from './gameState.js';
-import { showError, revealScoresByCard } from './uiScript.js';
-import { setClearBtnState } from './bettingChips.js';
-import { calculatePoints, shouldDrawThirdCard } from './gameLogic.js';
+/* ==========================================
+   dealing.js
+   Handles dealing cards, third card logic, and card animations for Baccarat
+   [Add your informational notes here.]
+   ========================================== */
+
+import { createCardElement } from "./cards.js";
+import { gameState } from './game-state.js';
+import { showError } from './ui-utils.js';
+import { setClearBtnState } from './betting-chips.js';
+import {  shouldDrawThirdCard } from './game-logic.js';
 import { drawCard } from './deck.js';
 
-const spritePath = "./sprite/cards/cardSpritesheet.png";
+const spritePath = "./sprite/cards/cards.png";
 
 // Helper to create a flippable card DOM structure
 function createFlippableCard(cardObj) {
@@ -22,7 +28,7 @@ function createFlippableCard(cardObj) {
   // Card back
   const back = document.createElement("div");
   back.className = "card-back";
-  back.style.backgroundImage = "url('./sprite/cards/cardBack.png')";
+  back.style.backgroundImage = "url('./sprite/cards/card-back.png')";
   back.style.backgroundSize = "cover";
   back.style.backgroundPosition = "center";
 
@@ -64,7 +70,7 @@ export async function dealCards() {
   for (let i = 0; i < 2; i++) {
     const pCard = drawCard();
     const bCard = drawCard();
-    if (!pCard || !bCard) return; // abort if deck is low
+    if (!pCard || !bCard) return; 
     playerCards.push(pCard);
     bankerCards.push(bCard);
   }
@@ -130,5 +136,4 @@ export async function dealCards() {
     }
   }
 
-  // Enable "End Round" button or other UI as needed here
 }
