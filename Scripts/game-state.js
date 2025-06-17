@@ -49,3 +49,5 @@ export const gameState = {
   usedItems: [],        // which items have been used
   activeItem: null,     // the currently active item (by key), or null if none
 };
+
+// this keeps EVERYTHING tracked

@@ -1,5 +1,6 @@
 // cards.js
 // Card mapping, parsing, and sprite position helpers for Baccarat
+//
 
 // --- Card Map (all possible card names) ---
 export const cardMap = [

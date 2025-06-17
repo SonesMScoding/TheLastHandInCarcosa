@@ -32,6 +32,8 @@ cardMap.forEach(card => {
   }
 });
 
+//https://www.w3schools.com/jsref/event_target.asp
+
 // ========== Main Overlay Setup ==========
 export function setupShoeOverlay() {
   const shoe = document.getElementById("shoe-id");
@@ -42,8 +44,10 @@ export function setupShoeOverlay() {
   shoe.addEventListener("click", () => {
     const isOpen = shoeView.classList.toggle("active");
     shoeView.style.display = isOpen ? "flex" : "none";
+    
     if (isOpen) {
       shoeView.innerHTML = "";
+
       suits.forEach(({ symbol, cards }) => {
         const row = document.createElement("div");
         row.className = "shoe-suit-row";
@@ -56,6 +60,7 @@ export function setupShoeOverlay() {
         label.style.fontWeight = "bold";
         label.style.fontSize = "22px";
         row.appendChild(label);
+
         cards.forEach(cardName => {
           const cardDiv = document.createElement("div");
           cardDiv.className = "shoe-card";

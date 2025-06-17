@@ -1,6 +1,5 @@
-https://sonesmscoding.github.io/TheLastHandInCarcosa/game2.html
+https://sonesmscoding.github.io/TheLastHandInCarcosa/baccarat.html
 
-observations after github page deployment: 
-change html title
-get responsive styling cause it looks funny hehe
+View Planning for early development and ideas
 
+View process to see my active to do list

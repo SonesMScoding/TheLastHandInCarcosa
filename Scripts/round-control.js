@@ -16,6 +16,8 @@ import { updateItemStats } from './item-stats.js';
 import { checkAndUnlockItems } from './items.js';
 
 // ========== Helpers ==========
+// https://www.geeksforgeeks.org/check-a-number-is-prime-or-not-using-javascript/
+
 function isPrime(num) {
   if (num < 2) return false;
   for (let i = 2; i <= Math.sqrt(num); i++) {
@@ -113,7 +115,10 @@ export function endRound(winner, playerPoints, bankerPoints) {
   // --- Boon payout logic (only ACTIVE boons) ---
   let originalPayout = payout;
   let stepPayout = payout;
-  let steps = [];
+
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+  //this array is a lil special
+  let steps = []; // Array to track each step of the payout calculation
 
   // Shub's Boon (All Mother's Boon)
   gameState.shubBonusApplied = false;

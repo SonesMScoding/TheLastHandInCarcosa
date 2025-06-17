@@ -10,6 +10,8 @@ import { updateFundsHUD, showError } from './ui-utils.js';
 export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
   setClearBtnState(); // Set initial state
 
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dragover_event
+  // https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API/Recommended_drag_types
   document.querySelectorAll(".bet-zone").forEach(zone => {
     zone.addEventListener("dragover", e => {
       if (gameState.gamePhase !== "betting") {
@@ -58,6 +60,8 @@ export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
       newChip.style.height = `${chipSize}px`;
       newChip.style.position = "absolute";
 
+      // chatGPT helped me keep chip placement logic DRY
+      //the chips will not clip out of the bet zones' clip path
       if (zone.classList.contains("tie-bet")) {
         const w = zone.offsetWidth, h = zone.offsetHeight;
         const Ax = 0.15 * w, Ay = h;
@@ -107,6 +111,9 @@ export function setupBetZones(chipSize, spriteSheetPath, chipPositions) {
   }
 }
 
+// https://www.w3schools.com/jsref/jsref_object_values.asp
+
+// --- Set Clear/Deal Button State ---
 export function setClearBtnState() {
   const clearBtn = document.getElementById('clearBetBtn');
   const dealBtn = document.getElementById('dealBtn');

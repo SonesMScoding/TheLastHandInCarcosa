@@ -1,5 +1,8 @@
 // game-logic.js
 // Baccarat hand calculation and third card rules
+//adapted from demo and casino royale rules
+
+// https://en.wikipedia.org/wiki/Baccarat
 
 // --- Calculate Baccarat Hand Points ---
 export function calculatePoints(hand) {
@@ -25,6 +28,7 @@ export function calculatePoints(hand) {
 
 // --- Third Card Drawing Rules ---
 /**
+ * https://jsdoc.app/tags-param
  * Determines if a third card should be drawn for player or banker.
  * @param {Array} hand - The hand to evaluate.
  * @param {boolean} isPlayer - True if evaluating for player, false for banker.

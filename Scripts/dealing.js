@@ -13,6 +13,7 @@ import { cloneDeep } from './utils.js';
 
 const spritePath = "./sprite/cards/cards.png";
 
+// https://dev.to/mugas/flip-cards-with-javascript-2ad0
 // Helper: Create a flippable card DOM structure
 function createFlippableCard(cardObj) {
   const wrapper = document.createElement("div");
@@ -39,6 +40,7 @@ function createFlippableCard(cardObj) {
   return wrapper;
 }
 
+// https://www.w3schools.com/js/js_async.asp
 // Main: Deal cards, animate, and update scores
 export async function dealCards() {
   setClearBtnState();
@@ -57,6 +59,8 @@ export async function dealCards() {
     showError("You can't deal right now!");
     return;
   }
+  // https://www.w3schools.com/jsref/prop_pushbutton_disabled.asp
+
   gameState.gamePhase = 'dealing';
   const dealBtn = document.getElementById('dealBtn');
   if (dealBtn) dealBtn.disabled = true;
@@ -103,6 +107,7 @@ export async function dealCards() {
   console.log("Player Hand:", gameState.playerHand);
   console.log("Banker Hand:", gameState.bankerHand);
 
+  // https://doc.babylonjs.com/features/featuresDeepDive/animation/sequenceAnimations/
   // Animation: deal and flip cards one by one, updating score as you go
   const sequence = [
     { handElem: playerHandElem, card: playerCards[0], hand: 'player' },
@@ -120,6 +125,8 @@ export async function dealCards() {
   let playerSum = 0;
   let bankerSum = 0;
 
+  // Ensures that the cards are being dealt and added to scores
+  //one by one with a delay for animation
   for (let i = 0; i < sequence.length; i++) {
     const step = sequence[i];
     await new Promise(res => setTimeout(res, 500));
@@ -165,7 +172,11 @@ export async function dealCards() {
     bankerScoreElem.textContent = `B:${originalBankerPoints}`;
   }
 
+  // https://developer.mozilla.org/en-US/docs/Glossary/Deep_copy
+  //ngl, the deep clone was not an original idea, and I had the help of AI to implement it
+ 
   // Before dealing cards, save a snapshot
+  //(mostly for the repaired reputation item)
   gameState._preRoundSnapshot = {
     funds: gameState.funds,
     totalPayouts: gameState.totalPayouts,

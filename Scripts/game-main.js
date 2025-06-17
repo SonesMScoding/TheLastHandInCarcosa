@@ -14,6 +14,11 @@ import { checkAndUnlockBoons } from './boons.js';
 import { getAllItems, createItemElement } from './items.js';
 import { updateItemStats } from './item-stats.js';
 
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules
+//https://www.w3schools.com/js/js_window.asp
+//https://www.w3schools.com/jsref/met_win_settimeout.asp
+
 // --- Debug Exports (remove for production) ---
 window.gameState = gameState;
 window.checkAndUnlockBoons = checkAndUnlockBoons;

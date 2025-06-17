@@ -1,7 +1,7 @@
 /* ==========================================
    items.js
    Defines one-use items, their effects, and manages unlocking/activation
-   ========================================== */
+   ========================================= */
 
 // ========== Imports ==========
 import { gameState } from './game-state.js';

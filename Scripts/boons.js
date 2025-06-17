@@ -6,6 +6,8 @@
 import { gameState } from './game-state.js';
 
 // --- Boon Definitions ---
+//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys
+
 export const boons = [
   {
     key: 'cthulusboon',

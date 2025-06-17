@@ -3,6 +3,9 @@
    Handles chip sprite setup and initialization for Baccarat
    ========================================== */
 
+  //  https://codehs.com/tutorial/andy/Programming_Sprites_in_JavaScript
+
+  
 export function setupChips(chipSize, spriteSheetPath, chipPositions) {
   document.querySelectorAll(".chip").forEach(chip => {
     const value = chip.dataset.value;

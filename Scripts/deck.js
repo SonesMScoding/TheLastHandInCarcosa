@@ -33,6 +33,7 @@ export function createDeck() {
   return deck;
 }
 
+//https://www.w3schools.com/js/tryit.asp?filename=tryjs_array_sort_random2
 // Fisher-Yates shuffle
 export function shuffleDeck() {
   let deck = createDeck();

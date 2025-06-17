@@ -1,5 +1,5 @@
 // boon-stats.js
-// Tracks and updates boon-related stats after each round
+//Tracks and updates boon-related stats after each round
 
 import { calculatePoints } from './game-logic.js';
 import { gameState } from './game-state.js';

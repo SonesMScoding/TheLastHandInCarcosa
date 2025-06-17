@@ -45,6 +45,7 @@ export async function revealScoresByCard(playerHand, bankerHand) {
   }
 
   // Reveal player cards one by one
+  // ASNYC / AWAIT animation 
   const playerCardElems = document.querySelectorAll('.player-hand .card');
   for (let i = 0; i < playerHand.length; i++) {
     playerSum += baccaratValue(playerHand[i]);
@@ -55,6 +56,7 @@ export async function revealScoresByCard(playerHand, bankerHand) {
   }
 
   // Reveal banker cards one by one
+    // ASNYC / AWAIT animation 
   const bankerCardElems = document.querySelectorAll('.banker-hand .card');
   for (let i = 0; i < bankerHand.length; i++) {
     bankerSum += baccaratValue(bankerHand[i]);
@@ -72,6 +74,7 @@ export function showError(message) {
   errorBox.textContent = message;
   errorBox.style.display = "flex";
 
+  //https://developer.mozilla.org/en-US/docs/Web/API/Window/requestAnimationFrame
   requestAnimationFrame(() => {
     errorBox.style.opacity = "1";
   });
@@ -228,19 +231,21 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', showMenuOverlay);
   });
 
+  // Close menu button
   const closeMenuBtn = document.getElementById('close-menu-btn');
   if (closeMenuBtn) closeMenuBtn.addEventListener('click', hideMenuOverlay);
 
+  //Rulebook button
   const rulebookBtn = document.getElementById('rulebook-btn');
   if (rulebookBtn) rulebookBtn.addEventListener('click', () => {
     window.open('rules.html', '_blank');
   });
 
+  //Restart game button
   const restartBtn = document.getElementById('restart-game-btn');
   if (restartBtn) {
     restartBtn.addEventListener('click', () => {
       resetGameState();
-      // Optionally, close the menu overlay if open:
       const menu = document.getElementById('main-menu-overlay');
       if (menu) menu.classList.remove('active');
     });
@@ -251,6 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const gameUI = document.getElementById('game-ui');
   const fadeOverlay = document.getElementById('fade-overlay');
 
+  //better implementation of overlay hiding
   if (returnStartBtn) {
     returnStartBtn.addEventListener('click', () => {
       // Hide game UI
@@ -265,15 +271,17 @@ document.addEventListener('DOMContentLoaded', () => {
         startScreen.style.display = 'flex';
         startScreen.classList.add('visible');
       }
-      // Optionally, reset any other UI state as needed
     });
   }
+
 
   FullRenderItems(gameState);
   setupUseItemButton(gameState);
 });
 
 // ===================== Tooltips =====================
+
+//shoe tooltip
 export function setupShoeTooltip() {
   const shoe = document.querySelector('.shoe');
   const tooltip = document.getElementById('shoe-tooltip');
@@ -292,6 +300,7 @@ export function setupShoeTooltip() {
   }
 }
 
+//boon tooltip
 function showBoonTooltip(event, boon) {
   const tooltip = document.getElementById('boon-tooltip');
   if (!tooltip) return;
@@ -300,6 +309,9 @@ function showBoonTooltip(event, boon) {
   tooltip.style.left = '0px';
   tooltip.style.top = '0px';
   tooltip.style.display = 'block';
+
+  //https://www.w3schools.com/jsref/met_element_getboundingclientrect.asp
+  //Chat gpt helped me figure out how to not have the info bits clipped in the screen
 
   const tooltipRect = tooltip.getBoundingClientRect();
   const padding = 12;
@@ -314,6 +326,8 @@ function hideBoonTooltip() {
   const tooltip = document.getElementById('boon-tooltip');
   if (tooltip) tooltip.classList.remove('visible');
 }
+
+//item tooltip
 function showItemTooltip(event, item) {
   const tooltip = document.getElementById('item-tooltip');
   if (!tooltip) return;
@@ -516,5 +530,7 @@ export function renderHands(gameState) {
     }
   }
 }
+
+
 export function updateShoeView() {}
 

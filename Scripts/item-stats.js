@@ -7,7 +7,7 @@ export function updateItemStats(gameState) {
   if (typeof gameState.totalBankerWins !== 'number') gameState.totalBankerWins = 0;
   if (typeof gameState.playerLostMoney !== 'number') gameState.playerLostMoney = 0;
 
-  // Update cumulative counters
+  // Update cumulative counters based on the last game result
   if (gameState.lastWinner === "player") {
     gameState.totalPlayerWins++;
   } else if (gameState.lastWinner === "banker") {
