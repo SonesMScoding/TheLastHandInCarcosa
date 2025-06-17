@@ -1,19 +1,19 @@
 /* ==========================================
    dealing.js
    Handles dealing cards, third card logic, and card animations for Baccarat
-   [Add your informational notes here.]
    ========================================== */
 
 import { createCardElement } from "./cards.js";
 import { gameState } from './game-state.js';
 import { showError } from './ui-utils.js';
 import { setClearBtnState } from './betting-chips.js';
-import {  shouldDrawThirdCard } from './game-logic.js';
+import { shouldDrawThirdCard } from './game-logic.js';
 import { drawCard } from './deck.js';
+import { cloneDeep } from './utils.js';
 
 const spritePath = "./sprite/cards/cards.png";
 
-// Helper to create a flippable card DOM structure
+// Helper: Create a flippable card DOM structure
 function createFlippableCard(cardObj) {
   const wrapper = document.createElement("div");
   wrapper.className = "card card-wrapper";
@@ -39,8 +39,15 @@ function createFlippableCard(cardObj) {
   return wrapper;
 }
 
+// Main: Deal cards, animate, and update scores
 export async function dealCards() {
   setClearBtnState();
+
+  // --- Reset score colors at the start of each deal ---
+  const playerScoreElem = document.getElementById('playerScore');
+  const bankerScoreElem = document.getElementById('bankerScore');
+  if (playerScoreElem) playerScoreElem.style.color = "";
+  if (bankerScoreElem) bankerScoreElem.style.color = "";
 
   if (gameState.currentBet === 0) {
     showError("You've placed no bets... the yellow king is displeased");
@@ -53,8 +60,6 @@ export async function dealCards() {
   gameState.gamePhase = 'dealing';
   const dealBtn = document.getElementById('dealBtn');
   if (dealBtn) dealBtn.disabled = true;
-
-  setClearBtnState();
 
   const playerHandElem = document.querySelector(".player-hand");
   const bankerHandElem = document.querySelector(".banker-hand");
@@ -94,6 +99,10 @@ export async function dealCards() {
   gameState.playerHand = playerCards;
   gameState.bankerHand = bankerCards;
 
+  // Debug: log the hand to verify card objects
+  console.log("Player Hand:", gameState.playerHand);
+  console.log("Banker Hand:", gameState.bankerHand);
+
   // Animation: deal and flip cards one by one, updating score as you go
   const sequence = [
     { handElem: playerHandElem, card: playerCards[0], hand: 'player' },
@@ -101,13 +110,12 @@ export async function dealCards() {
     { handElem: playerHandElem, card: playerCards[1], hand: 'player' },
     { handElem: bankerHandElem, card: bankerCards[1], hand: 'banker' }
   ];
-  // Add third cards to sequence if present
   if (playerCards[2]) sequence.push({ handElem: playerHandElem, card: playerCards[2], hand: 'player' });
   if (bankerCards[2]) sequence.push({ handElem: bankerHandElem, card: bankerCards[2], hand: 'banker' });
 
   // Reset scores to zero before dealing
-  document.getElementById('playerScore').textContent = 'P:0';
-  document.getElementById('bankerScore').textContent = 'B:0';
+  playerScoreElem.textContent = 'P:0';
+  bankerScoreElem.textContent = 'B:0';
 
   let playerSum = 0;
   let bankerSum = 0;
@@ -129,11 +137,55 @@ export async function dealCards() {
     // Update score as each card is dealt
     if (step.hand === 'player') {
       playerSum += (step.card.value === 'A' || ['J','Q','K','10'].includes(step.card.value)) ? 0 : parseInt(step.card.value) || 0;
-      document.getElementById('playerScore').textContent = `P:${playerSum % 10}`;
+      playerScoreElem.textContent = `P:${playerSum % 10}`;
     } else {
       bankerSum += (step.card.value === 'A' || ['J','Q','K','10'].includes(step.card.value)) ? 0 : parseInt(step.card.value) || 0;
-      document.getElementById('bankerScore').textContent = `B:${bankerSum % 10}`;
+      bankerScoreElem.textContent = `B:${bankerSum % 10}`;
     }
   }
 
+  // --- Cthulhu's Boon: Show banker score reduction if active ---
+  let originalBankerPoints = bankerSum % 10;
+  let diamondReduction = 0;
+  let adjustedBankerPoints = originalBankerPoints;
+  if (
+    gameState.activeBoons &&
+    gameState.activeBoons.includes('cthulusboon')
+  ) {
+    diamondReduction = gameState.bankerHand.filter(
+      card => card.suit === "dia" || card.suit === "diamonds"
+    ).length;
+    if (diamondReduction > 0) {
+      adjustedBankerPoints = (originalBankerPoints - diamondReduction + 10) % 10;
+      bankerScoreElem.innerHTML = `B:${originalBankerPoints} <span style="color:deepskyblue;">- ${diamondReduction} = ${adjustedBankerPoints}</span>`;
+    } else {
+      bankerScoreElem.textContent = `B:${originalBankerPoints}`;
+    }
+  } else {
+    bankerScoreElem.textContent = `B:${originalBankerPoints}`;
+  }
+
+  // Before dealing cards, save a snapshot
+  gameState._preRoundSnapshot = {
+    funds: gameState.funds,
+    totalPayouts: gameState.totalPayouts,
+    totalLosses: gameState.totalLosses,
+    playerWinStreak: gameState.playerWinStreak,
+    hasWonByOnePoint: gameState.hasWonByOnePoint,
+    lastWinner: gameState.lastWinner,
+    lastLossAmount: gameState.lastLossAmount,
+    boonUnlocks: cloneDeep(gameState.boonUnlocks),
+    itemUnlocks: cloneDeep(gameState.itemUnlocks),
+    usedItems: [...gameState.usedItems],
+    betAmounts: { ...gameState.betAmounts },
+    ledgerHTML: document.getElementById('ledger-body')?.innerHTML,
+    ledgerHTMLAlt: document.getElementById('ledger-body-alt')?.innerHTML,
+    playerWinCount: document.getElementById('playerWin-count')?.textContent,
+    bankerWinCount: document.getElementById('bankerWin-count')?.textContent,
+    tieCount: document.getElementById('tie-count')?.textContent,
+    playerWinCountAlt: document.getElementById('playerWin-count-alt')?.textContent,
+    bankerWinCountAlt: document.getElementById('bankerWin-count-alt')?.textContent,
+    tieCountAlt: document.getElementById('tie-count-alt')?.textContent,
+    // Add any other state you want to revert
+  };
 }

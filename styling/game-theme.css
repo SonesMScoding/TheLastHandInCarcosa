@@ -1,7 +1,6 @@
 /* ==========================================
    game-theme.css
    styling for the game interface
-   [Add your informational notes here.]
    ========================================== */
 
 /* ------------------------------------------------------
@@ -42,6 +41,61 @@ body.no-scroll {
   pointer-events: none;
 }
 
+/* ------------------------------------------------------
+   Start Screen & Credits Popup Styling
+------------------------------------------------------ */
+#start-screen {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 1s;
+}
+#start-screen.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+#start-screen h1 {
+  color: #fff;
+  font-size: 3em;
+  margin-bottom: 1em;
+}
+
+/* Overlay for credits and transitions */
+#fade-overlay {
+  position: fixed;
+  inset: 0;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 1s;
+  pointer-events: all;
+}
+#fade-overlay.visible {
+  opacity: 1;
+}
+#credit-text {
+  color: #fff;
+  font-size: 2em;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s;
+}
+#credit-text.visible {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------
+   Main Layout
+------------------------------------------------------ */
 .main-layout {
   display: flex;
   flex-direction: row;
@@ -225,6 +279,12 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
   margin-top: 20rem;
 }
 
+.right-hud {
+  flex: 0 0 20%;
+  max-width: 22%;
+  min-width: 220px;
+}
+
 /* Right HUD */
 .right-hud .action-buttons {
   display: flex;
@@ -242,13 +302,16 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
   margin: 0 auto;
 }
 
-.blessing-box, .boon-box {
+.blessing-hud-box, .boon-hud-box {
   width: 100%;
   max-width: 200px;
-  height: 300px;
-  overflow-y: auto;
+  height: 37%;
+  min-height: 200px;
   padding: 10px;
   box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap; /* Allow icons to wrap */
+  gap: 6px;
 }
 
 .altLeft-hud {
@@ -435,7 +498,7 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
   background-repeat: no-repeat;
   /* https://www.w3schools.com/graphics/svg_clipping_masking.asp */
   /* ChatGPT assisted with making every svg and clip-path to maximize time 
-  spent on getting the shpapes I wanted. */
+  spent on getting the shpapes I Wanted. */
   clip-path: url(#inwardTopFlatBottom);
   -webkit-clip-path: url(#inwardTopFlatBottom);
   position: relative;
@@ -586,6 +649,125 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
   transition: transform 0.3s ease;
 }
 
+.boon-hud-box h6,
+.blessing-hud-box h6,
+.boon-box h6,
+.blessing-box h6 {
+  text-align: center;
+  width: 100%;
+  margin: 0 0 0.5em 0;
+  font-weight: bold;
+  display: block;
+}
+
+.boon-hud-box,
+.boon-box,
+.blessing-hud-box,
+.blessing-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* ------------------------------------------------------
+   Boons
+------------------------------------------------------ */
+.boon-icon {
+  display: inline-block;
+  border: 2px solid #bfa600;
+  border-radius: 8px;
+  margin: 0 6px 6px 0;
+  box-shadow: 0 0 8px #bfa60044;
+  opacity: 0.85;
+  transition: border 0.2s, opacity 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+}
+.boon-icon:hover {
+  border: 2px solid #f9ecae;
+  opacity: 1;
+    box-shadow: 0 0 8px #fcdb06f1;
+
+}
+
+.boon-icon.boon-active {
+  border: 2px solid #ffe066;
+  box-shadow: 0 0 16px #ffe066, 0 0 32px #fcd116;
+  opacity: 1;
+}
+
+.boon-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #1a1a1a;
+  color: #fcd116;
+  border: 2px solid #fcd116;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  font-family: 'Cinzel', serif;
+  font-size: 1em;
+  z-index: 20000;
+  white-space: pre-line;
+  opacity: 0;
+  transition: opacity 0.15s;
+  box-shadow: 0 0 8px #bfa60044;
+  max-width: 320px;
+}
+.boon-tooltip.visible {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------
+   Items
+------------------------------------------------------ */
+
+.item-icon {
+  display: inline-block;
+  border: 2px solid #0e6b6b;
+  border-radius: 8px;
+  margin: 0 6px 6px 0;
+  box-shadow: 0 0 8px #0e6b6b44;
+  opacity: 0.85;
+  transition: border 0.2s, opacity 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  width: 48px;
+  height: 58px;
+  background-size: 849px 680px; /* match your sprite sheet size */
+}
+.item-icon:hover {
+  border: 2px solid #aef9ec;
+  opacity: 1;
+  box-shadow: 0 0 8px #06fcd1f1;
+}
+.item-icon.item-active {
+  border: 2px solid #66ffe0;
+  box-shadow: 0 0 16px #66ffe0, 0 0 32px #16fcd1;
+  opacity: 1;
+}
+.item-tooltip {
+  position: fixed;
+  pointer-events: none;
+  background: #1a1a1a;
+  color: #16fcd1;
+  border: 2px solid #16fcd1;
+  border-radius: 8px;
+  padding: 0.5em 1em;
+  font-family: 'Cinzel', serif;
+  font-size: 1em;
+  z-index: 20000;
+  white-space: pre-line;
+  opacity: 1;
+  transition: opacity 0.15s;
+  box-shadow: 0 0 8px #0e6b6b44;
+  max-width: 320px;
+  display: none;
+}
+.item-tooltip.visible {
+  display: block;
+  opacity: 1;
+}
 /* ------------------------------------------------------
    Overlay for Shoe View
 ------------------------------------------------------ */
@@ -653,6 +835,79 @@ button:hover, .btn:hover, input[type="button"]:hover, input[type="submit"]:hover
 .dissolve {
   opacity: 0;
   transition: opacity 0.5s ease;
+}
+
+/* Reshuffle Popup (moved here for logical grouping) */
+#reshuffle-popup {
+  display: none;
+}
+#reshuffle-popup.active {
+  display: block;
+}
+
+#reshuffle-popup.popup-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#reshuffle-popup.active {
+  display: flex;
+  opacity: 1;
+}
+
+#reshuffle-popup .popup-content {
+  background: #222;
+  color: #fff;
+  padding: 2em 3em;
+  border-radius: 12px;
+  font-size: 1.5em;
+  box-shadow: 0 4px 32px #0008;
+}
+
+/* ------------------------------------------------------
+   Forbidden Knowledge Overlay & Item Dissolve
+   (moved here for logical grouping)
+------------------------------------------------------ */
+#forbidden-knowledge-overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+#forbidden-knowledge-cards {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+}
+.fk-card {
+  width: 60px;
+  height: 90px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #000a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+  font-family: serif;
+  color: #222;
+}
+
+.item-icon.dissolve {
+  opacity: 0;
+  transition: opacity 0.5s;
+  pointer-events: none;
 }
 
 /* ------------------------------------------------------

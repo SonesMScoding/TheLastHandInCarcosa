@@ -1,7 +1,6 @@
 /* ==========================================
    chips.js
    Handles chip sprite setup and initialization for Baccarat
-   [Add your informational notes here.]
    ========================================== */
 
 export function setupChips(chipSize, spriteSheetPath, chipPositions) {
@@ -10,7 +9,12 @@ export function setupChips(chipSize, spriteSheetPath, chipPositions) {
     chip.style.width = `${chipSize}px`;
     chip.style.height = `${chipSize}px`;
     chip.style.backgroundImage = `url(${spriteSheetPath})`;
-    chip.style.backgroundPosition = chipPositions[value];
+    if (chipPositions[value]) {
+      chip.style.backgroundPosition = chipPositions[value];
+    } else {
+      chip.style.backgroundPosition = "0px 0px";
+      console.warn("Unknown chip value for sprite:", value);
+    }
     chip.style.backgroundSize = "150px 100px";
     chip.style.backgroundRepeat = "no-repeat";
     chip.style.backgroundColor = "transparent";
@@ -20,7 +24,7 @@ export function setupChips(chipSize, spriteSheetPath, chipPositions) {
   });
 }
 
-//  easy initialization with defaults
+// Easy initialization with defaults
 export function initializeChips() {
   const chipPositions = {
     "1": "0px 0px",

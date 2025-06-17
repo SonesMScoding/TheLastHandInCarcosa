@@ -1,7 +1,6 @@
 /* ==========================================
    betting-chips.js
    Handles bet zone logic, chip placement, and clear/deal button state for Baccarat
-   [Add your informational notes here.]
    ========================================== */
 
 import { gameState } from './game-state.js';

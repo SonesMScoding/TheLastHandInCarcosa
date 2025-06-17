@@ -1,15 +1,38 @@
 /* ==========================================
    ui-utils.js
-   reveals scores, updates HUDs, shows outcomes, and manages overlays
-   Handles Baccarat-specific UI interactions
-   Provides utility functions for game state updates
-   [Add your informational notes here.]
+   Utility functions for Baccarat UI
    ========================================== */
 
 import { gameState } from './game-state.js';
+import { getUnlockedBoons, toggleBoon, getAllBoons, createBoonElement } from './boons.js';
+import { getUnlockedItems, toggleItem, createItemElement, useItem, getItemByKey } from './items.js';
+import { getAllItems } from './items.js';
+import { createCardElement } from './cards.js';
+import { calculatePoints } from './game-logic.js';
+import { resetGameState } from './round-control.js';
 
-// Reveal scores card by card, using Baccarat rules
-// https://www.w3schools.com/js/js_async.asp
+
+// ===================== General UI =====================
+export function updateFundsHUD() {
+  const funds = document.getElementById("funds");
+  const activeBet = document.getElementById("active-bet");
+  if (funds) funds.textContent = gameState.funds;
+  if (activeBet) activeBet.textContent = gameState.currentBet;
+
+  const fundsAlt = document.getElementById("funds-alt");
+  const activeBetAlt = document.getElementById("active-bet-alt");
+  if (fundsAlt) fundsAlt.textContent = gameState.funds;
+  if (activeBetAlt) activeBetAlt.textContent = gameState.currentBet;
+}
+
+export function updateScores(gameState) {
+  const playerScoreElem = document.getElementById('playerScore');
+  const bankerScoreElem = document.getElementById('bankerScore');
+  if (playerScoreElem) playerScoreElem.textContent = `P:${calculatePoints(gameState.playerHand)}`;
+  if (bankerScoreElem) bankerScoreElem.textContent = `B:${calculatePoints(gameState.bankerHand)}`;
+}
+
+// ===================== Overlays & Modals =====================
 export async function revealScoresByCard(playerHand, bankerHand) {
   let playerSum = 0;
   let bankerSum = 0;
@@ -17,7 +40,7 @@ export async function revealScoresByCard(playerHand, bankerHand) {
   // Helper to get Baccarat value
   function baccaratValue(card) {
     if (!card || !card.value) return 0;
-    if (['J', 'Q', 'K', '10', 'A'].includes(card.value)) return 0;
+    if (["J", "Q", "K", "10", "A"].includes(card.value)) return 0;
     return parseInt(card.value) || 0;
   }
 
@@ -42,20 +65,6 @@ export async function revealScoresByCard(playerHand, bankerHand) {
   }
 }
 
-// Update funds and bet display in both HUDs
-export function updateFundsHUD() {
-  const funds = document.getElementById("funds");
-  const activeBet = document.getElementById("active-bet");
-  if (funds) funds.textContent = gameState.funds;
-  if (activeBet) activeBet.textContent = gameState.currentBet;
-
-  const fundsAlt = document.getElementById("funds-alt");
-  const activeBetAlt = document.getElementById("active-bet-alt");
-  if (fundsAlt) fundsAlt.textContent = gameState.funds;
-  if (activeBetAlt) activeBetAlt.textContent = gameState.currentBet;
-}
-
-// Show an error overlay, dismissable by click
 export function showError(message) {
   const errorBox = document.getElementById("errorBox");
   if (!errorBox) return alert(message);
@@ -63,8 +72,6 @@ export function showError(message) {
   errorBox.textContent = message;
   errorBox.style.display = "flex";
 
-  // https://www.geeksforgeeks.org/javascript/window-window-requestanimationframe-method/
-  // https://www.kirupa.com/html5/animating_with_requestAnimationFrame.htm
   requestAnimationFrame(() => {
     errorBox.style.opacity = "1";
   });
@@ -85,16 +92,6 @@ export function showError(message) {
   }, 100); // slight delay to avoid immediate dismissal from the triggering click
 }
 
-
-export function updateShoeView() {
-  //  show remaining cards in the shoe
-  // const shoeElem = document.getElementById('shoe-id');
-  // if (shoeElem) {
-  //   shoeElem.textContent = `Cards left: ${gameState.deck.length}`;
-  // }
-}
-
-// Show outcome overlay with payout/loss, dismissable by click
 export function showOutcome(message, payout, loss, onDismiss) {
   const outcomeBox = document.getElementById("outcomeBox");
   let details = "";
@@ -124,7 +121,54 @@ export function showOutcome(message, payout, loss, onDismiss) {
   }, 200);
 }
 
-// Ledger and round tracking
+export function showWinOverlay() {
+  const overlay = document.getElementById('fullscreen-overlay-win');
+  if (overlay) {
+    overlay.classList.add('active');
+    document.body.classList.add('no-scroll');
+  }
+  const outcomeBox = document.getElementById('outcomeBox');
+  if (outcomeBox) {
+    outcomeBox.style.opacity = "0";
+    setTimeout(() => {
+      outcomeBox.style.display = "none";
+      outcomeBox.innerHTML = "";
+    }, 300);
+  }
+}
+export function showLoseOverlay() {
+  const overlay = document.getElementById('fullscreen-overlay-lose');
+  if (overlay) {
+    overlay.classList.add('active');
+    document.body.classList.add('no-scroll');
+  }
+  const outcomeBox = document.getElementById('outcomeBox');
+  if (outcomeBox) {
+    outcomeBox.style.opacity = "0";
+    setTimeout(() => {
+      outcomeBox.style.display = "none";
+      outcomeBox.innerHTML = "";
+    }, 300);
+  }
+}
+export function hideWinOverlay() {
+  const winOverlay = document.getElementById('fullscreen-overlay-win');
+  if (winOverlay) {
+    winOverlay.classList.remove('active');
+    winOverlay.style.display = 'none';
+  }
+  document.body.classList.remove('no-scroll');
+}
+export function hideLoseOverlay() {
+  const loseOverlay = document.getElementById('fullscreen-overlay-lose');
+  if (loseOverlay) {
+    loseOverlay.classList.remove('active');
+    loseOverlay.style.display = 'none';
+  }
+  document.body.classList.remove('no-scroll');
+}
+
+// ===================== Ledger =====================
 let roundNumber = 1;
 export function addLedgerRow(winner) {
   function updateLedger(ledgerId) {
@@ -140,8 +184,6 @@ export function addLedgerRow(winner) {
       tCell = `<svg width="20" height="20" viewBox="0 0 20 20" style="vertical-align:middle;"><circle cx="10" cy="10" r="8" fill="#3498db"/></svg>`;
     }
 
-    //had to use copilot to assist with aligning the dynamic tr
-
     const row = document.createElement("tr");
     row.innerHTML = `<td style="font-weight:bold;">${roundNumber}</td><td>${bCell}</td><td>${pCell}</td><td>${tCell}</td>`;
     ledgerBody.appendChild(row);
@@ -152,110 +194,86 @@ export function addLedgerRow(winner) {
   updateLedger("ledger-body-alt");
 
   // Update win counters
-  // https://codepen.io/kraigwalker/pen/DjwedK
-  // https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+  function updateCounter(id) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = (parseInt(el.textContent) || 0) + 1;
+  }
   if (winner === "banker") {
-    const el = document.getElementById("bankerWin-count");
-    const elAlt = document.getElementById("bankerWin-count-alt");
-    if (el) el.textContent = parseInt(el.textContent) + 1;
-    if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
-  } 
-  
-  else if (winner === "player") {
-    const el = document.getElementById("playerWin-count");
-    const elAlt = document.getElementById("playerWin-count-alt");
-    if (el) el.textContent = parseInt(el.textContent) + 1;
-    if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
-  } 
-  
-  else if (winner === "tie") {
-    const el = document.getElementById("tie-count");
-    const elAlt = document.getElementById("tie-count-alt");
-    if (el) el.textContent = parseInt(el.textContent) + 1;
-    if (elAlt) elAlt.textContent = parseInt(elAlt.textContent) + 1;
+    updateCounter("bankerWin-count");
+    updateCounter("bankerWin-count-alt");
+  } else if (winner === "player") {
+    updateCounter("playerWin-count");
+    updateCounter("playerWin-count-alt");
+  } else if (winner === "tie") {
+    updateCounter("tie-count");
+    updateCounter("tie-count-alt");
   }
 
   roundNumber++;
 }
 
-// Fullscreen overlays for win/lose
-export function showWinOverlay() {
-  document.getElementById('fullscreen-overlay-win').classList.add('active');
-  document.body.classList.add('no-scroll');
-  const outcomeBox = document.getElementById('outcomeBox');
-  if (outcomeBox) {
-    outcomeBox.style.opacity = "0";
-    setTimeout(() => {
-      outcomeBox.style.display = "none";
-      outcomeBox.innerHTML = "";
-       //makes sure the "bet wins, whatever payout" overlay is hidden
-
-    }, 300);
-  }
-}
-export function showLoseOverlay() {
-  document.getElementById('fullscreen-overlay-lose').classList.add('active');
-  document.body.classList.add('no-scroll');
-  const outcomeBox = document.getElementById('outcomeBox');
-  if (outcomeBox) {
-    outcomeBox.style.opacity = "0";
-    setTimeout(() => {
-      outcomeBox.style.display = "none";
-      outcomeBox.innerHTML = "";
-    }, 300);
-  }
-}
-export function hideWinOverlay() {
-  const winOverlay = document.getElementById('fullscreen-overlay-win');
-  winOverlay.classList.remove('active');
-  winOverlay.style.display = 'none';
-  document.body.classList.remove('no-scroll');
-  // makes sure the game behind the overlay doesnt scroll and interfere with the users priorities
-}
-export function hideLoseOverlay() {
-  const loseOverlay = document.getElementById('fullscreen-overlay-lose');
-  loseOverlay.classList.remove('active');
-  loseOverlay.style.display = 'none';
-  document.body.classList.remove('no-scroll');
-}
-
-// Main menu overlay controls
+// ===================== Menu Overlay =====================
 function showMenuOverlay() {
-  document.getElementById('main-menu-overlay').classList.add('active');
+  const menu = document.getElementById('main-menu-overlay');
+  if (menu) menu.classList.add('active');
 }
 function hideMenuOverlay() {
-  document.getElementById('main-menu-overlay').classList.remove('active');
+  const menu = document.getElementById('main-menu-overlay');
+  if (menu) menu.classList.remove('active');
 }
 
-// !!!!! must event listeners after DOM is loaded ^^
+// Event listeners after DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-  // Open menu from any menu button
   document.querySelectorAll('.open-menu-btn').forEach(btn => {
     btn.addEventListener('click', showMenuOverlay);
   });
 
-  // Close menu
-  document.getElementById('close-menu-btn').addEventListener('click', hideMenuOverlay);
+  const closeMenuBtn = document.getElementById('close-menu-btn');
+  if (closeMenuBtn) closeMenuBtn.addEventListener('click', hideMenuOverlay);
 
-  // Rulebook
-  document.getElementById('rulebook-btn').addEventListener('click', () => {
-    alert('Show Rulebook (implement this)');
+  const rulebookBtn = document.getElementById('rulebook-btn');
+  if (rulebookBtn) rulebookBtn.addEventListener('click', () => {
+    window.open('rules.html', '_blank');
   });
 
-  // Restart Game
-  document.getElementById('restart-game-btn').addEventListener('click', () => {
-    window.location.reload();
-  });
+  const restartBtn = document.getElementById('restart-game-btn');
+  if (restartBtn) {
+    restartBtn.addEventListener('click', () => {
+      resetGameState();
+      // Optionally, close the menu overlay if open:
+      const menu = document.getElementById('main-menu-overlay');
+      if (menu) menu.classList.remove('active');
+    });
+  }
 
-  // Return to Start
-  document.getElementById('return-start-btn').addEventListener('click', () => {
-    window.location.href = 'index.html';
-  });
+  const returnStartBtn = document.getElementById('return-start-btn');
+  const startScreen = document.getElementById('start-screen');
+  const gameUI = document.getElementById('game-ui');
+  const fadeOverlay = document.getElementById('fade-overlay');
+
+  if (returnStartBtn) {
+    returnStartBtn.addEventListener('click', () => {
+      // Hide game UI
+      if (gameUI) gameUI.style.display = 'none';
+      // Hide credits overlay if visible
+      if (fadeOverlay) {
+        fadeOverlay.style.display = 'none';
+        fadeOverlay.classList.remove('visible');
+      }
+      // Show start screen
+      if (startScreen) {
+        startScreen.style.display = 'flex';
+        startScreen.classList.add('visible');
+      }
+      // Optionally, reset any other UI state as needed
+    });
+  }
+
+  FullRenderItems(gameState);
+  setupUseItemButton(gameState);
 });
 
-// Tooltip for shoe hover
-// This function sets up a tooltip that follows the mouse cursor when hovering over the shoe element
-// https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
+// ===================== Tooltips =====================
 export function setupShoeTooltip() {
   const shoe = document.querySelector('.shoe');
   const tooltip = document.getElementById('shoe-tooltip');
@@ -273,3 +291,230 @@ export function setupShoeTooltip() {
     });
   }
 }
+
+function showBoonTooltip(event, boon) {
+  const tooltip = document.getElementById('boon-tooltip');
+  if (!tooltip) return;
+  tooltip.innerHTML = `<strong>${boon.name}</strong><br>${boon.description}<br><em>Unlock: ${boon.unlockConditionText || "See code"}</em>`;
+  tooltip.classList.add('visible');
+  tooltip.style.left = '0px';
+  tooltip.style.top = '0px';
+  tooltip.style.display = 'block';
+
+  const tooltipRect = tooltip.getBoundingClientRect();
+  const padding = 12;
+  let left = event.clientX - tooltipRect.width - padding;
+  let top = event.clientY - tooltipRect.height - padding;
+  if (left < padding) left = padding;
+  if (top < padding) top = padding;
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+}
+function hideBoonTooltip() {
+  const tooltip = document.getElementById('boon-tooltip');
+  if (tooltip) tooltip.classList.remove('visible');
+}
+function showItemTooltip(event, item) {
+  const tooltip = document.getElementById('item-tooltip');
+  if (!tooltip) return;
+  tooltip.innerHTML = `<strong>${item.name}</strong><br>${item.description}<br><em>Unlock: ${item.unlockConditionText || "See code"}</em><br><em>Use: ${item.useWhen}</em>`;
+  tooltip.classList.add('visible');
+  tooltip.style.display = 'block';
+
+  // Temporarily set to measure size
+  tooltip.style.left = '0px';
+  tooltip.style.top = '0px';
+
+  // Measure tooltip
+  const tooltipRect = tooltip.getBoundingClientRect();
+  const padding = 12;
+
+  // Position to upper left of cursor
+  let left = event.clientX - tooltipRect.width - padding;
+  let top = event.clientY - tooltipRect.height - padding;
+
+  // Prevent clipping
+  if (left < padding) left = padding;
+  if (top < padding) top = padding;
+  if (left + tooltipRect.width + padding > window.innerWidth) left = window.innerWidth - tooltipRect.width - padding;
+  if (top + tooltipRect.height + padding > window.innerHeight) top = window.innerHeight - tooltipRect.height - padding;
+
+  tooltip.style.left = left + 'px';
+  tooltip.style.top = top + 'px';
+}
+function hideItemTooltip() {
+  const tooltip = document.getElementById('item-tooltip');
+  if (tooltip) {
+    tooltip.classList.remove('visible');
+    tooltip.style.display = 'none';
+  }
+}
+
+// ===================== Boons =====================
+export function renderBoonbox(gameState) {
+  const boonboxDiv = document.getElementById('boon-box');
+  if (!boonboxDiv) return;
+  boonboxDiv.innerHTML = '';
+  const unlocked = getUnlockedBoons(gameState);
+  unlocked.forEach(boon => {
+    const boonDiv = createBoonElement(boon.key, './sprite/boons/boons.png');
+    boonDiv.title = `${boon.name}: ${boon.description}`;
+    if (gameState.activeBoons.includes(boon.key)) boonDiv.classList.add('boon-active');
+    boonDiv.addEventListener('click', () => {
+      if (gameState.gamePhase !== "betting") {
+        showError("Boons can only be toggled during the betting phase.");
+        return;
+      }
+      const isActive = gameState.activeBoons.includes(boon.key);
+      if (!isActive && gameState.activeBoons.length >= 3) {
+        showError("You do not possess the strength to wield more than three boons at a time.");
+        return;
+      }
+      toggleBoon(gameState, boon.key);
+      renderBoonbox(gameState);
+    });
+    boonDiv.addEventListener('mousemove', (e) => showBoonTooltip(e, boon));
+    boonDiv.addEventListener('mouseleave', hideBoonTooltip);
+    boonboxDiv.appendChild(boonDiv);
+  });
+}
+export function FullRenderBoonbox(gameState) {
+  const boonboxDiv = document.getElementById('boon-box');
+  if (!boonboxDiv) return;
+  boonboxDiv.innerHTML = '';
+  getAllBoons().forEach(boon => {
+    const boonDiv = createBoonElement(boon.key, './sprite/boons/boons.png');
+    boonDiv.title = `${boon.name}: ${boon.description}`;
+    if (gameState && gameState.activeBoons && gameState.activeBoons.includes(boon.key)) boonDiv.classList.add('boon-active');
+    boonDiv.addEventListener('click', () => {
+      const isActive = gameState.activeBoons.includes(boon.key);
+      if (!isActive && gameState.activeBoons.length >= 3) {
+        showError("You do not possess the strength to wield more than three boons at a time.");
+        return;
+      }
+      toggleBoon(gameState, boon.key);
+      FullRenderBoonbox(gameState);
+    });
+    boonDiv.addEventListener('mousemove', (e) => showBoonTooltip(e, boon));
+    boonDiv.addEventListener('mouseleave', hideBoonTooltip);
+    boonboxDiv.appendChild(boonDiv);
+  });
+}
+
+// ===================== Items =====================
+export function FullRenderItems(gameState) {
+  const itemBox = document.getElementById('item-box');
+  if (!itemBox) return;
+  itemBox.innerHTML = '';
+
+  const unlockedItems = getUnlockedItems(gameState);
+  unlockedItems.forEach(item => {
+    const itemDiv = createItemElement(item.key, 'sprite/items/items.png');
+    itemDiv.classList.toggle('item-active', gameState.activeItem === item.key);
+
+    itemDiv.onmouseenter = (e) => showItemTooltip(e, item);
+    itemDiv.onmousemove = (e) => showItemTooltip(e, item);
+    itemDiv.onmouseleave = hideItemTooltip;
+
+    itemDiv.onclick = () => {
+      toggleItem(gameState, item.key);
+      FullRenderItems(gameState);
+      const useBtn = document.getElementById('use-item-btn');
+      if (useBtn) useBtn.disabled = !canUseActiveItem(gameState);
+    };
+
+    itemBox.appendChild(itemDiv);
+  });
+
+  // Enable/disable use button
+  const useBtn = document.getElementById('use-item-btn');
+  if (useBtn) useBtn.disabled = !canUseActiveItem(gameState);
+}
+export function FullRenderItembox(gameState) {
+  const itemBox = document.getElementById('item-box');
+  if (!itemBox) return;
+  itemBox.innerHTML = '';
+  const allItems = typeof getAllItems === 'function' ? getAllItems() : [];
+  allItems.forEach(item => {
+    const itemDiv = createItemElement(item.key, 'sprite/items/items.png');
+    itemDiv.title = `${item.name}: ${item.description}`;
+    itemDiv.classList.toggle('item-active', gameState.activeItem === item.key);
+
+    itemDiv.onmouseenter = (e) => showItemTooltip(e, item);
+    itemDiv.onmousemove = (e) => showItemTooltip(e, item);
+    itemDiv.onmouseleave = hideItemTooltip;
+
+    itemDiv.onclick = () => {
+      toggleItem(gameState, item.key);
+      FullRenderItembox(gameState);
+      const useBtn = document.getElementById('use-item-btn');
+      if (useBtn) useBtn.disabled = !gameState.activeItem;
+    };
+
+    itemBox.appendChild(itemDiv);
+  });
+
+  // Enable/disable use button
+  const useBtn = document.getElementById('use-item-btn');
+  if (useBtn) useBtn.disabled = !gameState.activeItem;
+}
+export function setupUseItemButton(gameState) {
+  const useBtn = document.getElementById('use-item-btn');
+  if (!useBtn) return;
+  useBtn.disabled = !canUseActiveItem(gameState);
+  useBtn.onclick = function() {
+    if (canUseActiveItem(gameState)) {
+      useItem(gameState, gameState.activeItem);
+      gameState.activeItem = null;
+      FullRenderItems(gameState);
+      useBtn.disabled = true;
+    }
+  };
+}
+export function canUseActiveItem(gameState) {
+  if (!gameState.activeItem) return false;
+  const item = getItemByKey(gameState.activeItem);
+  if (!item) return false;
+
+  const dealingItems = ['madhand', 'eyeofsleep', 'repairedreputation'];
+  const bettingItems = ['forbiddenknowl', 'whiseroutergods'];
+
+  if (dealingItems.includes(item.key)) return gameState.gamePhase === "dealing";
+  if (bettingItems.includes(item.key)) return gameState.gamePhase === "betting";
+  return false;
+}
+export function updateUseItemButton(gameState) {
+  const useBtn = document.getElementById('use-item-btn');
+  if (useBtn) useBtn.disabled = !canUseActiveItem(gameState);
+}
+
+// ===================== Hand Rendering =====================
+export function renderHands(gameState) {
+  const playerHandElem = document.querySelector('.player-hand');
+  const bankerHandElem = document.querySelector('.banker-hand');
+  const spritePath = "./sprite/cards/cards.png";
+
+  if (playerHandElem) {
+    playerHandElem.innerHTML = '';
+    if (gameState.playerHand && gameState.playerHand.length) {
+      gameState.playerHand.forEach(card => {
+        const cardDiv = createCardElement(card, spritePath);
+        cardDiv.classList.add('card', 'flipped');
+        playerHandElem.appendChild(cardDiv);
+      });
+    }
+  }
+
+  if (bankerHandElem) {
+    bankerHandElem.innerHTML = '';
+    if (gameState.bankerHand && gameState.bankerHand.length) {
+      gameState.bankerHand.forEach(card => {
+        const cardDiv = createCardElement(card, spritePath);
+        cardDiv.classList.add('card', 'flipped');
+        bankerHandElem.appendChild(cardDiv);
+      });
+    }
+  }
+}
+export function updateShoeView() {}
+

@@ -29,6 +29,16 @@ To Do (6/13/25)
 3. Boons and items mapping
 4. Boons and items implementation
 
+gameState.boonUnlocks.cthulusboon = true;
+gameState.boonUnlocks.nyasboon = true;
+gameState.boonUnlocks.shubsboon = true;
+gameState.boonUnlocks.sigilgreed = true;
+gameState.boonUnlocks.ykfavor = true;
+renderBoonbox(gameState);
+
+
+--------------------------------------------------
+
 5. Load up start screen 
         black -> credits -> start screen
                                 start game - fade start screen -> active game
@@ -36,6 +46,8 @@ To Do (6/13/25)
                                 credits -> black -> credits -> start screen
 
 6. Music
+
+--------------------------------------------------
 7. Clean up + Documentation pt 2
 
 8. Make slideshows

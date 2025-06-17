@@ -1,9 +1,7 @@
-/* ==========================================
-   cards.js
-   Card mapping, parsing, and sprite position helpers for Baccarat
-   [Add your informational notes here.]
-   ========================================== */
+// cards.js
+// Card mapping, parsing, and sprite position helpers for Baccarat
 
+// --- Card Map (all possible card names) ---
 export const cardMap = [
   "club10", "club2", "club3", "club4", "club5", "club6", "club7", "club8",
   "club9", "cluba", "clubj", "clubk", "clubq",
@@ -12,7 +10,8 @@ export const cardMap = [
   "spades10", "spades2", "spades3", "spades4", "spades5", "spades6", "spades7", "spades8", "spades9", "spadesa", "spadesj", "spadesk", "spadesq"
 ];
 
-//convert "club3" => { suit: "club", value: "3", name: "club3" }
+// --- Card Parsing ---
+// Convert "club3" => { suit: "club", value: "3", name: "club3" }
 export function parseCard(cardName) {
   const match = cardName.match(/^(club|dia|hearts|spades)(10|[2-9]|[ajqk])$/i);
   if (!match) return null;
@@ -25,6 +24,7 @@ export function parseCard(cardName) {
   };
 }
 
+// --- Card Sprite Positions ---
 export const cardSpritePositions = {};
 const SPRITE_WIDTH = 283;
 const SPRITE_HEIGHT = 340;
@@ -41,7 +41,7 @@ cardMap.forEach((fileName, i) => {
   };
 });
 
-// Utility function to create card element
+// --- Card Element Creation ---
 export function createCardElement(cardObj, spritePath) {
   // Accepts either a string or an object
   const cardName = typeof cardObj === "string" ? cardObj : (cardObj && cardObj.name);

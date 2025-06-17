@@ -20,7 +20,7 @@ If Banker/player Wins by exactly 1 point, double payout
 
 Mask of Doubles: 
 If tie occurs, and your losing bet on player or banker, win half your bet back rather than lose it all 
-    conditions: tie occurs and players bet is lost
+    conditions: tie occurs and players bet is lost (UNUSED)
 
 Blessing of the Yellow King: 
 Win an additional 10% payout when player wins three times in a row

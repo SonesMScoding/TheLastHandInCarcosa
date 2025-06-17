@@ -58,8 +58,8 @@ Blessings occur when certain conditions are met and gifts the player with items 
 
 Win/lose
 
-The game ends when you play to the cut card 
+The game ends when you play through 4 reshuffles
 
-You win and earn a highscore when you have a positive scores
+You win when you make more than $100
 
 You lose when your balance is below $100 or negative

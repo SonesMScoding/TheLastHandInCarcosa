@@ -1,57 +1,52 @@
 /* ==========================================
    shoe-toggle.js
-    Overlay for showing the shoe (remaining cards)
-   [Add your informational notes here.]
+   Overlay for showing the shoe (remaining cards)
    ========================================== */
-
 
 import { cardMap, cardSpritePositions } from './cards.js';
 import { gameState } from './game-state.js';
 
-// Overlay for showing the shoe (remaining cards)
-export function setupShoeOverlay() {
-  const SPRITE_WIDTH = 283;
-  const SPRITE_HEIGHT = 340;
-  const SPRITE_SHEET_WIDTH = 2264;
-  const SPRITE_SHEET_HEIGHT = 2380;
-  const CARD_WIDTH = 50;
-  const CARD_HEIGHT = 60;
-  const SPRITE_PATH = "./sprite/cards/cards.png";
+// ========== Constants & Config ==========
+const SPRITE_WIDTH = 283;
+const SPRITE_HEIGHT = 340;
+const SPRITE_SHEET_WIDTH = 2264;
+const SPRITE_SHEET_HEIGHT = 2380;
+const CARD_WIDTH = 50;
+const CARD_HEIGHT = 60;
+const SPRITE_PATH = "./sprite/cards/cards.png";
 
-  const suits = [
-    { prefix: "spades", symbol: "♠", cards: [] },
-    { prefix: "hearts", symbol: "♥", cards: [] },
-    { prefix: "dia", symbol: "♦", cards: [] },
-    { prefix: "club", symbol: "♣", cards: [] }
-  ];
-  // https://developer.mozilla.org/en-US/docs/Web/API/Element/prefix
+const suits = [
+  { prefix: "spades", symbol: "♠", cards: [] },
+  { prefix: "hearts", symbol: "♥", cards: [] },
+  { prefix: "dia", symbol: "♦", cards: [] },
+  { prefix: "club", symbol: "♣", cards: [] }
+];
 
-  // Fill each suit's row in sprite order
-  cardMap.forEach(card => {
-    for (const suit of suits) {
-      if (card.startsWith(suit.prefix)) {
-        suit.cards.push(card);
-        break;
-      }
+// Fill each suit's row in sprite order
+cardMap.forEach(card => {
+  for (const suit of suits) {
+    if (card.startsWith(suit.prefix)) {
+      suit.cards.push(card);
+      break;
     }
-  });
+  }
+});
 
+// ========== Main Overlay Setup ==========
+export function setupShoeOverlay() {
   const shoe = document.getElementById("shoe-id");
   const shoeView = document.getElementById("shoe-view");
   if (!shoe || !shoeView) return;
 
   shoe.style.cursor = "pointer";
   shoe.addEventListener("click", () => {
-    // Use flex for visible, none for hidden
     const isOpen = shoeView.classList.toggle("active");
     shoeView.style.display = isOpen ? "flex" : "none";
     if (isOpen) {
       shoeView.innerHTML = "";
-
       suits.forEach(({ symbol, cards }) => {
         const row = document.createElement("div");
         row.className = "shoe-suit-row";
-        // Suit label
         const label = document.createElement("span");
         label.textContent = symbol;
         label.style.width = "24px";
@@ -61,13 +56,11 @@ export function setupShoeOverlay() {
         label.style.fontWeight = "bold";
         label.style.fontSize = "22px";
         row.appendChild(label);
-
         cards.forEach(cardName => {
           const cardDiv = document.createElement("div");
           cardDiv.className = "shoe-card";
           cardDiv.style.width = `${CARD_WIDTH}px`;
           cardDiv.style.height = `${CARD_HEIGHT}px`;
-          // Sprite logic:
           const scale = CARD_HEIGHT / SPRITE_HEIGHT;
           cardDiv.style.backgroundImage = `url(${SPRITE_PATH})`;
           cardDiv.style.backgroundRepeat = "no-repeat";
@@ -79,7 +72,6 @@ export function setupShoeOverlay() {
           cardDiv.style.boxShadow = "none";
           cardDiv.style.border = "1px solid #aaa";
           cardDiv.style.display = "inline-block";
-          // Grey out if played
           if (gameState.discard.some(card => card.name === cardName)) {
             cardDiv.style.opacity = "0.4";
             cardDiv.style.filter = "grayscale(1)";
@@ -91,7 +83,6 @@ export function setupShoeOverlay() {
     }
   });
 
-  // Hide overlay when clicking outside the card area
   shoeView.addEventListener("click", (e) => {
     if (e.target === shoeView) {
       shoeView.classList.remove("active");
